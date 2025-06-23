@@ -38,7 +38,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} antialiased bg-white min-h-screen font-sans`}
       >
-        <div className="select-none fixed inset-0 z-40">
+        <div className="pointer-events-none select-none fixed inset-0 z-40">
           <Header />
           <NavLinks />
           <FooterLeft />

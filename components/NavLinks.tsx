@@ -11,7 +11,7 @@ const links = [
 
 export default function NavLinks() {
   return (
-    <nav className="absolute top-0 right-0 p-6 flex gap-6 text-gray-700 text-base font-medium">
+    <nav className="pointer-events-auto absolute top-0 right-0 p-6 flex gap-6 text-gray-700 text-base font-medium">
       {links.map((link) => (
         <a
           key={link.href}
