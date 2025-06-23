@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Barlow_Condensed } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +10,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const barlow = Barlow_Condensed({
+  weight: "900",
+  subsets: ["latin"],
+  variable: "--font-barlow-condensed",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white min-h-screen font-sans`}
+        className={`${geistSans.variable} ${geistMono.variable} ${barlow.variable} antialiased bg-white min-h-screen font-sans`}
       >
         <div className="pointer-events-none select-none fixed inset-0 z-40">
           <div className="absolute top-0 left-0 p-4 text-gray-900 font-bold text-lg pointer-events-auto select-auto">
