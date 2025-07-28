@@ -33,6 +33,21 @@ export const metadata: Metadata = {
   title: "Playground - David Umoru",
   description:
     "A collection of interactive experiments, exploring WebGL, Canvas, generative visuals, and creative coding on the web.",
+  openGraph: {
+    url: "https://playground.davidumoru.me",
+    siteName: "Playground - David Umoru",
+    images: [
+      {
+        url: "https://playground.davidumoru.me/og.png",
+        width: 1200,
+        height: 630,
+        type: "image/png",
+      },
+      {
+        url: "https://playground.davidumoru.me/api/og",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
@@ -42,12 +57,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          property="og:image"
-          content="https://playground.davidumoru.me/api/og"
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${barlow.variable} antialiased bg-white min-h-screen font-sans`}
       >
