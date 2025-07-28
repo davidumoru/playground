@@ -24,8 +24,8 @@ const barlow = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  title: "ui.davidumoru.me",
-  description: "UI & Design Projects",
+  title: "Playground - David Umoru",
+  description: "A collection of interactive experiments, exploring WebGL, Canvas, generative visuals, and creative coding on the web.",
 };
 
 export default function RootLayout({
