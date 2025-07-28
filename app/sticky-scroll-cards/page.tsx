@@ -39,7 +39,7 @@ export default function StickyScrollCards() {
   }, []);
 
   return (
-    <div ref={container} className="bg-zinc-950">
+    <div ref={container}>
       {CardImages.map((src, i) => {
         const targetScale = 1 - (CardImages.length - i) * 0.05;
 
