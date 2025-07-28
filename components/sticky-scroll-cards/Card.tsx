@@ -25,17 +25,27 @@ const Card = ({ i, image, progress, range, targetScale }: CardProps) => {
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0"
+      className="h-screen flex items-center justify-center sticky top-0 px-4 sm:px-6 md:px-8"
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${i * 25}px)`,
+          top: `calc(-5vh + ${i * 15}px)`,
         }}
-        className="relative w-full max-w-5xl h-[500px] rounded-[20px] overflow-hidden"
+        className="relative w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl 
+                   h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] 
+                   rounded-[12px] sm:rounded-[16px] md:rounded-[20px] 
+                   overflow-hidden"
       >
         <motion.div className="w-full h-full" style={{ scale: imageScale }}>
-          <Image src={image} alt={`Card ${i}`} fill className="object-cover" priority/>
+          <Image
+            src={image}
+            alt={`Card ${i}`}
+            fill
+            className="object-cover"
+            priority
+            sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 70vw, 60vw"
+          />
         </motion.div>
       </motion.div>
     </div>

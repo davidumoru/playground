@@ -41,7 +41,7 @@ export default function StickyScrollCards() {
   return (
     <div ref={container}>
       {CardImages.map((src, i) => {
-        const targetScale = 1 - (CardImages.length - i) * 0.05;
+        const targetScale = 1 - (CardImages.length - i) * 0.03;
 
         return (
           <Card
