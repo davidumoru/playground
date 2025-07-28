@@ -35,7 +35,7 @@ const Card = ({ i, image, progress, range, targetScale }: CardProps) => {
         className="relative w-full max-w-5xl h-[500px] rounded-[20px] overflow-hidden"
       >
         <motion.div className="w-full h-full" style={{ scale: imageScale }}>
-          <Image src={image} alt={`Card ${i}`} fill className="object-cover" />
+          <Image src={image} alt={`Card ${i}`} fill className="object-cover" priority/>
         </motion.div>
       </motion.div>
     </div>
