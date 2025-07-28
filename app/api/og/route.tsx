@@ -39,6 +39,10 @@ export async function GET() {
           and creative coding.
         </div>
       </div>
-    )
+    ),
+    {
+      width: 1200,
+      height: 630,
+    }
   );
 }
