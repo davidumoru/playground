@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useTransform, motion, useScroll, MotionValue } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 type CardProps = {
   i: number;
@@ -9,32 +9,59 @@ type CardProps = {
   progress: MotionValue<number>;
   range: [number, number];
   targetScale: number;
+  mobileTargetScale: number;
 };
 
-const Card = ({ i, image, progress, range, targetScale }: CardProps) => {
+const Card = ({
+  i,
+  image,
+  progress,
+  range,
+  targetScale,
+  mobileTargetScale,
+}: CardProps) => {
   const container = useRef<HTMLDivElement | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: container,
     offset: ["start end", "start start"],
   });
 
+  useEffect(() => {
+    const checkIsMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile();
+    window.addEventListener("resize", checkIsMobile);
+
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
+
   const imageScale = useTransform(scrollYProgress, [0, 1], [2, 1]);
-  const scale = useTransform(progress, range, [1, targetScale]);
+
+  const desktopScale = useTransform(progress, range, [1, targetScale]);
+  const mobileScale = useTransform(progress, range, [1, mobileTargetScale]);
+  const scale = isMobile ? mobileScale : desktopScale;
+
+  const desktopTopOffset = `calc(-5vh + ${i * 25}px)`;
+  const mobileTopOffset = `calc(-5vh + ${i * 15}px)`;
 
   return (
     <div
       ref={container}
-      className="h-screen flex items-center justify-center sticky top-0 px-4 sm:px-6 md:px-8"
+      className="h-screen flex items-center justify-center sticky top-0 px-0 md:px-0 sm:px-4"
     >
       <motion.div
         style={{
           scale,
-          top: `calc(-5vh + ${i * 15}px)`,
+          top: isMobile ? mobileTopOffset : desktopTopOffset,
         }}
-        className="relative w-full max-w-sm sm:max-w-2xl md:max-w-4xl lg:max-w-5xl 
-                   h-[300px] sm:h-[400px] md:h-[450px] lg:h-[500px] 
-                   rounded-[12px] sm:rounded-[16px] md:rounded-[20px] 
+        className="relative w-full 
+                   max-w-sm sm:max-w-2xl md:max-w-5xl
+                   h-[300px] sm:h-[400px] md:h-[500px]
+                   rounded-[12px] sm:rounded-[16px] md:rounded-[20px]
                    overflow-hidden"
       >
         <motion.div className="w-full h-full" style={{ scale: imageScale }}>
@@ -44,7 +71,7 @@ const Card = ({ i, image, progress, range, targetScale }: CardProps) => {
             fill
             className="object-cover"
             priority
-            sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, (max-width: 1024px) 70vw, 60vw"
+            sizes="(max-width: 640px) 90vw, (max-width: 768px) 80vw, 100vw"
           />
         </motion.div>
       </motion.div>

@@ -6,9 +6,9 @@ import Lenis from "lenis";
 import Card from "@/components/sticky-scroll-cards/Card";
 
 const CardImages = [
-  "https://images.unsplash.com/photo-1603565816030-6b389eeb23cb",
   "https://images.unsplash.com/photo-1513622118278-bc041b3c13ed",
   "https://images.unsplash.com/photo-1605315188787-e3c8f6bf927a",
+  "https://images.unsplash.com/photo-1603565816030-6b389eeb23cb",
   "https://images.unsplash.com/photo-1503614472-8c93d56e92ce",
   "https://images.unsplash.com/photo-1483653364400-eedcfb9f1f88",
   "https://images.unsplash.com/photo-1609412058473-c199497c3c5d",
@@ -41,7 +41,8 @@ export default function StickyScrollCards() {
   return (
     <div ref={container}>
       {CardImages.map((src, i) => {
-        const targetScale = 1 - (CardImages.length - i) * 0.03;
+        const targetScale = 1 - (CardImages.length - i) * 0.05;
+        const mobileTargetScale = 1 - (CardImages.length - i) * 0.03;
 
         return (
           <Card
@@ -51,6 +52,7 @@ export default function StickyScrollCards() {
             progress={scrollYProgress}
             range={[i * 0.2, 1]}
             targetScale={targetScale}
+            mobileTargetScale={mobileTargetScale}
           />
         );
       })}
