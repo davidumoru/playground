@@ -30,7 +30,7 @@ function splitText(text: string) {
   ));
 }
 
-export default function ProfileGallery() {
+export default function VerticalTextReveal() {
   const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
   const namesRef = useRef<(HTMLDivElement | null)[]>([]);
   const defaultNameRef = useRef<HTMLDivElement>(null);
