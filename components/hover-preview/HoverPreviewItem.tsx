@@ -27,16 +27,28 @@ export default function HoverPreviewItem({
     onModalStateChange({ isActive: false, activeIndex: index });
   };
 
+  const handleTouchStart = () => {
+    onModalStateChange({ isActive: true, activeIndex: index });
+  };
+
+  const handleTouchEnd = () => {
+    setTimeout(() => {
+      onModalStateChange({ isActive: false, activeIndex: index });
+    }, 1500);
+  };
+
   return (
     <div
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="group flex w-full cursor-pointer items-center justify-between border-t border-gray-300 px-25 py-12.5 transition-all duration-200 last:border-b hover:opacity-50"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="group flex w-full cursor-pointer items-center justify-between border-t border-gray-300 px-4 py-6 sm:px-8 sm:py-8 lg:px-25 lg:py-12.5 transition-all duration-200 last:border-b hover:opacity-50"
     >
-      <h2 className="m-0 text-6xl font-normal transition-all duration-400 group-hover:-translate-x-2.5">
+      <h2 className="m-0 text-2xl sm:text-4xl lg:text-6xl font-normal transition-all duration-400 group-hover:-translate-x-2.5">
         {title}
       </h2>
-      <p className="font-light transition-all duration-400 group-hover:translate-x-2.5">
+      <p className="text-sm sm:text-base lg:text-base font-light transition-all duration-400 group-hover:translate-x-2.5">
         {role}
       </p>
     </div>

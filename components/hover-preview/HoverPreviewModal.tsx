@@ -102,7 +102,9 @@ export default function HoverPreviewModal({
       moveCursorLabel.y(pageY);
     };
 
-    window.addEventListener("mousemove", handleMouseMove);
+    if (!("ontouchstart" in window)) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
 
     return () => {
       window.removeEventListener("mousemove", handleMouseMove);
@@ -116,7 +118,17 @@ export default function HoverPreviewModal({
         variants={modalScaleAnimation}
         initial="initial"
         animate={isActive ? "enter" : "closed"}
-        className="pointer-events-none absolute flex h-[350px] w-[400px] items-center justify-center overflow-hidden bg-white"
+        className="pointer-events-none absolute flex h-[200px] w-[250px] sm:h-[280px] sm:w-[320px] lg:h-[350px] lg:w-[400px] items-center justify-center overflow-hidden bg-white"
+        style={{
+          left:
+            typeof window !== "undefined" && "ontouchstart" in window
+              ? "50%"
+              : undefined,
+          top:
+            typeof window !== "undefined" && "ontouchstart" in window
+              ? "50%"
+              : undefined,
+        }}
       >
         <div
           className="absolute h-full w-full transition-[top] duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
@@ -133,7 +145,7 @@ export default function HoverPreviewModal({
                 width={300}
                 height={0}
                 alt={`${project.title} preview`}
-                className="h-auto"
+                className="h-auto w-[180px] sm:w-[240px] lg:w-[300px]"
               />
             </div>
           ))}
@@ -142,18 +154,30 @@ export default function HoverPreviewModal({
 
       <motion.div
         ref={cursorRef}
-        className="pointer-events-none absolute z-[2] flex h-20 w-20 items-center justify-center rounded-full bg-[#455CE9] text-sm font-light text-white"
+        className="pointer-events-none absolute z-[2] hidden lg:flex h-12 w-12 lg:h-20 lg:w-20 items-center justify-center rounded-full bg-[#455CE9] text-xs lg:text-sm font-light text-white"
         variants={modalScaleAnimation}
         initial="initial"
         animate={isActive ? "enter" : "closed"}
+        style={{
+          display:
+            typeof window !== "undefined" && "ontouchstart" in window
+              ? "none"
+              : undefined,
+        }}
       />
 
       <motion.div
         ref={cursorLabelRef}
-        className="pointer-events-none absolute z-[2] flex h-20 w-20 items-center justify-center rounded-full bg-transparent text-sm font-light text-white"
+        className="pointer-events-none absolute z-[2] hidden lg:flex h-12 w-12 lg:h-20 lg:w-20 items-center justify-center rounded-full bg-transparent text-xs lg:text-sm font-light text-white"
         variants={modalScaleAnimation}
         initial="initial"
         animate={isActive ? "enter" : "closed"}
+        style={{
+          display:
+            typeof window !== "undefined" && "ontouchstart" in window
+              ? "none"
+              : undefined,
+        }}
       >
         View
       </motion.div>

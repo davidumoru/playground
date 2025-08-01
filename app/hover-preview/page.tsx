@@ -49,8 +49,8 @@ export default function HoverPreview() {
   });
 
   return (
-    <main className="flex h-screen items-center justify-center">
-      <div className="flex w-[1000px] flex-col items-center justify-center">
+    <main className="flex h-screen items-center justify-center px-4 sm:px-6 lg:px-0">
+      <div className="flex w-full max-w-[1000px] lg:w-[1000px] flex-col items-center justify-center">
         {portfolios.map((project, index) => (
           <HoverPreviewItem
             key={index}
