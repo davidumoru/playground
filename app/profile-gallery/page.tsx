@@ -54,14 +54,12 @@ export default function ProfileGallery() {
   useEffect(() => {
     if (!mounted) return;
 
-    // Initialize all name letters to be hidden
     namesRef.current.forEach((div) => {
       if (!div) return;
       const letters = Array.from(div.querySelectorAll(".letter"));
       gsap.set(letters, { y: "100%" });
     });
 
-    // Initialize default name letters
     if (defaultNameRef.current) {
       const letters = Array.from(
         defaultNameRef.current.querySelectorAll(".letter")
@@ -73,7 +71,6 @@ export default function ProfileGallery() {
     const cleanupFns: (() => void)[] = [];
 
     if (!isMobile) {
-      // Desktop interactions
       imagesRef.current.forEach((img, index) => {
         const nameDiv = namesRef.current[index];
         if (!img || !nameDiv) return;
@@ -122,7 +119,6 @@ export default function ProfileGallery() {
         });
       });
 
-      // Container hover for default name
       if (containerRef.current && defaultNameRef.current) {
         const container = containerRef.current;
         const defaultLetters = Array.from(
@@ -158,7 +154,6 @@ export default function ProfileGallery() {
         });
       }
     } else {
-      // Mobile interactions
       imagesRef.current.forEach((img, index) => {
         const nameDiv = namesRef.current[index];
         if (!img || !nameDiv) return;
@@ -170,7 +165,6 @@ export default function ProfileGallery() {
         const onClick = () => {
           if (activeIndex === index) return;
 
-          // Reset previous
           if (activeIndex !== null && namesRef.current[activeIndex]) {
             const prevLetters = Array.from(
               namesRef.current[activeIndex]!.querySelectorAll(".letter")
@@ -194,7 +188,6 @@ export default function ProfileGallery() {
             }
           }
 
-          // Animate current
           gsap.killTweensOf(letters);
           gsap.killTweensOf(img);
           gsap.to(img, {
@@ -218,7 +211,6 @@ export default function ProfileGallery() {
         });
       });
 
-      // Show default name on mobile
       if (defaultNameRef.current) {
         const defaultLetters = Array.from(
           defaultNameRef.current.querySelectorAll(".letter")
@@ -238,7 +230,7 @@ export default function ProfileGallery() {
   }, [isMobile, mounted]);
 
   if (!mounted) {
-    return null; // Prevent hydration mismatch
+    return null;
   }
 
   const imgSize = isMobile ? 60 : 100;
