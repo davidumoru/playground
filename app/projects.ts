@@ -1,10 +1,9 @@
-// app/projects.ts
 export const projects = [
   {
-    name: "Interactive Profile Gallery",
+    name: "Vertical Text Reveal",
     description:
-      "A responsive profile gallery with animated GSAP microinteractions on names and images.",
-    url: "/profile-gallery",
+      "An interactive vertical text reveal animation appearing from below using GSAP.",
+    url: "/vertical-text-reveal",
   },
   {
     name: "Sticky Scroll Cards",
@@ -13,9 +12,15 @@ export const projects = [
     url: "/sticky-scroll-cards",
   },
   {
-    name: "Hover Preview",
+    name: "Hover Preview Modal",
     description:
-      "An animated hover interaction where each list item reveals an image preview using Framer Motion and GSAP",
+      "A hover interaction where each list item reveals an image preview using Framer Motion and GSAP.",
     url: "/hover-preview",
+  },
+  {
+    name: "Infinite Parallax Grid",
+    description:
+      "An infinite draggable grid of images with a parallax scroll effect using GSAP.",
+    url: "/infinite-parallax-grid",
   },
 ];
