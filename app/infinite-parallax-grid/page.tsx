@@ -68,11 +68,27 @@ interface GridItem {
 
 const originalSize = { w: 1522, h: 1238 };
 
+const debounceResize = (func: () => void, wait: number) => {
+  let timeout: NodeJS.Timeout;
+  return () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(), wait);
+  };
+};
+
+const isMobileDevice = () => {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+    navigator.userAgent
+  );
+};
+
 export default function InfiniteParallaxGrid() {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsRef = useRef<GridItem[]>([]);
   const rafId = useRef<number | null>(null);
   const observerRef = useRef<IntersectionObserver | null>(null);
+  const isInitialized = useRef(false);
+  const isMobile = useRef(false);
 
   const scroll = useRef({
     ease: 0.06,
@@ -88,11 +104,25 @@ export default function InfiniteParallaxGrid() {
     press: { t: 0, c: 0 },
   });
 
-  const drag = useRef({ startX: 0, startY: 0, scrollX: 0, scrollY: 0 });
+  const drag = useRef({
+    startX: 0,
+    startY: 0,
+    scrollX: 0,
+    scrollY: 0,
+    active: false,
+  });
+
   const tileSize = useRef({ w: 0, h: 0 });
   const winSize = useRef({ w: 0, h: 0 });
 
   const [isDragging, setIsDragging] = useState(false);
+
+  useEffect(() => {
+    isMobile.current = isMobileDevice();
+    if (isMobile.current) {
+      scroll.current.ease = 0.08;
+    }
+  }, []);
 
   const createItems = useCallback(() => {
     if (!containerRef.current) return;
@@ -146,6 +176,7 @@ export default function InfiniteParallaxGrid() {
           img.style.height = "100%";
           img.style.objectFit = "cover";
           img.style.willChange = "transform";
+          img.draggable = false;
           itemImage.appendChild(img);
 
           containerRef.current!.appendChild(el);
@@ -162,7 +193,7 @@ export default function InfiniteParallaxGrid() {
             extraX: 0,
             extraY: 0,
             rect: el.getBoundingClientRect(),
-            ease: Math.random() * 0.5 + 0.5,
+            ease: Math.random() * 0.3 + 0.4,
           });
         });
       });
@@ -171,20 +202,22 @@ export default function InfiniteParallaxGrid() {
     tileSize.current.w *= 2;
     tileSize.current.h *= 2;
 
-    const initialX = -winSize.current.w * 0.1;
-    const initialY = -winSize.current.h * 0.1;
-    scroll.current.current.x =
-      scroll.current.target.x =
-      scroll.current.last.x =
-        initialX;
-    scroll.current.current.y =
-      scroll.current.target.y =
-      scroll.current.last.y =
-        initialY;
+    if (!isInitialized.current) {
+      const initialX = -winSize.current.w * 0.1;
+      const initialY = -winSize.current.h * 0.1;
+      scroll.current.current.x =
+        scroll.current.target.x =
+        scroll.current.last.x =
+          initialX;
+      scroll.current.current.y =
+        scroll.current.target.y =
+        scroll.current.last.y =
+          initialY;
+    }
   }, []);
 
   const initIntro = useCallback(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || isInitialized.current) return;
 
     const introItems = Array.from(
       containerRef.current.querySelectorAll(".item-wrapper")
@@ -206,15 +239,20 @@ export default function InfiniteParallaxGrid() {
     });
 
     gsap.to(introItems.reverse(), {
-      duration: 2,
+      duration: isMobile.current ? 1.5 : 2,
       ease: "expo.inOut",
       x: 0,
       y: 0,
-      stagger: 0.05,
+      stagger: isMobile.current ? 0.03 : 0.05,
+      onComplete: () => {
+        isInitialized.current = true;
+      },
     });
   }, []);
 
-  const onResize = useCallback(() => {
+  const handleResize = useCallback(() => {
+    const oldWinSize = { ...winSize.current };
+
     winSize.current.w = window.innerWidth;
     winSize.current.h = window.innerHeight;
 
@@ -223,15 +261,31 @@ export default function InfiniteParallaxGrid() {
       h: winSize.current.w * (originalSize.h / originalSize.w),
     };
 
-    scroll.current.current = { x: 0, y: 0 };
-    scroll.current.target = { x: 0, y: 0 };
-    scroll.current.last = { x: 0, y: 0 };
+    const widthChange = Math.abs(winSize.current.w - oldWinSize.w);
+    const heightChange = Math.abs(winSize.current.h - oldWinSize.h);
+
+    if (!isInitialized.current || widthChange > 100 || heightChange > 100) {
+      scroll.current.current = { x: 0, y: 0 };
+      scroll.current.target = { x: 0, y: 0 };
+      scroll.current.last = { x: 0, y: 0 };
+    }
 
     createItems();
     initIntro();
   }, [createItems, initIntro]);
 
+  const onResize = useCallback(() => {
+    const debouncedHandler = debounceResize(
+      handleResize,
+      isMobile.current ? 300 : 150
+    );
+    debouncedHandler();
+  }, [handleResize]);
+
   const render = useCallback(() => {
+    const easeMultiplier = isMobile.current ? 0.5 : 1;
+    const parallaxIntensity = isMobile.current ? 0.3 : 0.6;
+
     scroll.current.current.x +=
       (scroll.current.target.x - scroll.current.current.x) *
       scroll.current.ease;
@@ -258,11 +312,11 @@ export default function InfiniteParallaxGrid() {
 
     itemsRef.current.forEach((item) => {
       const newX =
-        5 * scroll.current.delta.x.c * item.ease +
-        (mouse.current.x.c - 0.5) * item.rect.width * 0.6;
+        3 * scroll.current.delta.x.c * item.ease * easeMultiplier +
+        (mouse.current.x.c - 0.5) * item.rect.width * parallaxIntensity;
       const newY =
-        5 * scroll.current.delta.y.c * item.ease +
-        (mouse.current.y.c - 0.5) * item.rect.height * 0.6;
+        3 * scroll.current.delta.y.c * item.ease * easeMultiplier +
+        (mouse.current.y.c - 0.5) * item.rect.height * parallaxIntensity;
 
       const scrollX = scroll.current.current.x;
       const scrollY = scroll.current.current.y;
@@ -283,12 +337,19 @@ export default function InfiniteParallaxGrid() {
       const fx = item.x + scrollX + item.extraX + newX;
       const fy = item.y + scrollY + item.extraY + newY;
 
-      item.el.style.transform = `translate(${fx}px, ${fy}px)`;
-      item.img.style.transform = `scale(${
-        1.2 + 0.2 * mouse.current.press.c * item.ease
-      }) translate(${-mouse.current.x.c * item.ease * 10}%, ${
-        -mouse.current.y.c * item.ease * 10
-      }%)`;
+      item.el.style.transform = `translate3d(${fx}px, ${fy}px, 0)`;
+
+      if (!isMobile.current) {
+        item.img.style.transform = `scale(${
+          1.2 + 0.2 * mouse.current.press.c * item.ease
+        }) translate(${-mouse.current.x.c * item.ease * 10}%, ${
+          -mouse.current.y.c * item.ease * 10
+        }%)`;
+      } else {
+        item.img.style.transform = `scale(${
+          1.1 + 0.1 * mouse.current.press.c
+        })`;
+      }
     });
 
     scroll.current.last.x = scroll.current.current.x;
@@ -299,41 +360,84 @@ export default function InfiniteParallaxGrid() {
 
   const onWheel = useCallback((e: WheelEvent) => {
     e.preventDefault();
-    const factor = 0.4;
+    const factor = isMobile.current ? 0.6 : 0.4;
     scroll.current.target.x -= e.deltaX * factor;
     scroll.current.target.y -= e.deltaY * factor;
   }, []);
 
-  const onMouseDown = useCallback((e: MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-    document.documentElement.classList.add("dragging");
-    mouse.current.press.t = 1;
-    drag.current.startX = e.clientX;
-    drag.current.startY = e.clientY;
-    drag.current.scrollX = scroll.current.target.x;
-    drag.current.scrollY = scroll.current.target.y;
-  }, []);
+  const handlePointerStart = useCallback(
+    (clientX: number, clientY: number, preventDefault: () => void) => {
+      preventDefault();
+      setIsDragging(true);
+      document.documentElement.classList.add("dragging");
+      mouse.current.press.t = 1;
+      drag.current.active = true;
+      drag.current.startX = clientX;
+      drag.current.startY = clientY;
+      drag.current.scrollX = scroll.current.target.x;
+      drag.current.scrollY = scroll.current.target.y;
+    },
+    []
+  );
 
-  const onMouseUp = useCallback(() => {
+  const handlePointerEnd = useCallback(() => {
     setIsDragging(false);
     document.documentElement.classList.remove("dragging");
     mouse.current.press.t = 0;
+    drag.current.active = false;
   }, []);
+
+  const handlePointerMove = useCallback((clientX: number, clientY: number) => {
+    mouse.current.x.t = clientX / winSize.current.w;
+    mouse.current.y.t = clientY / winSize.current.h;
+
+    if (drag.current.active) {
+      const dx = clientX - drag.current.startX;
+      const dy = clientY - drag.current.startY;
+      scroll.current.target.x = drag.current.scrollX + dx;
+      scroll.current.target.y = drag.current.scrollY + dy;
+    }
+  }, []);
+
+  const onMouseDown = useCallback(
+    (e: MouseEvent) => {
+      handlePointerStart(e.clientX, e.clientY, () => e.preventDefault());
+    },
+    [handlePointerStart]
+  );
+
+  const onMouseUp = useCallback(() => {
+    handlePointerEnd();
+  }, [handlePointerEnd]);
 
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
-      mouse.current.x.t = e.clientX / winSize.current.w;
-      mouse.current.y.t = e.clientY / winSize.current.h;
-
-      if (isDragging) {
-        const dx = e.clientX - drag.current.startX;
-        const dy = e.clientY - drag.current.startY;
-        scroll.current.target.x = drag.current.scrollX + dx;
-        scroll.current.target.y = drag.current.scrollY + dy;
-      }
+      handlePointerMove(e.clientX, e.clientY);
     },
-    [isDragging]
+    [handlePointerMove]
+  );
+
+  const onTouchStart = useCallback(
+    (e: TouchEvent) => {
+      const touch = e.touches[0];
+      handlePointerStart(touch.clientX, touch.clientY, () =>
+        e.preventDefault()
+      );
+    },
+    [handlePointerStart]
+  );
+
+  const onTouchEnd = useCallback(() => {
+    handlePointerEnd();
+  }, [handlePointerEnd]);
+
+  const onTouchMove = useCallback(
+    (e: TouchEvent) => {
+      e.preventDefault();
+      const touch = e.touches[0];
+      handlePointerMove(touch.clientX, touch.clientY);
+    },
+    [handlePointerMove]
   );
 
   useLayoutEffect(() => {
@@ -353,7 +457,9 @@ export default function InfiniteParallaxGrid() {
   useLayoutEffect(() => {
     onResize();
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
   }, [onResize]);
 
   useEffect(() => {
@@ -362,19 +468,37 @@ export default function InfiniteParallaxGrid() {
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mouseup", onMouseUp);
+
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd);
+
     if (container) {
       container.addEventListener("mousedown", onMouseDown);
+      container.addEventListener("touchstart", onTouchStart, {
+        passive: false,
+      });
     }
 
     return () => {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
       if (container) {
         container.removeEventListener("mousedown", onMouseDown);
+        container.removeEventListener("touchstart", onTouchStart);
       }
     };
-  }, [onWheel, onMouseMove, onMouseUp, onMouseDown]);
+  }, [
+    onWheel,
+    onMouseMove,
+    onMouseUp,
+    onTouchMove,
+    onTouchEnd,
+    onMouseDown,
+    onTouchStart,
+  ]);
 
   useEffect(() => {
     rafId.current = requestAnimationFrame(render);
@@ -390,6 +514,11 @@ export default function InfiniteParallaxGrid() {
       className={`w-screen h-screen font-mono overflow-hidden select-none ${
         isDragging ? "cursor-grabbing" : "cursor-grab"
       }`}
+      style={{
+        fontFamily: "'Roboto Mono', monospace",
+        userSelect: "none",
+        touchAction: "none",
+      }}
     >
       <div
         id="images"
@@ -408,6 +537,19 @@ export default function InfiniteParallaxGrid() {
 
         html.dragging * {
           cursor: grabbing !important;
+        }
+
+        * {
+          -webkit-touch-callout: none;
+          -webkit-user-select: none;
+          -khtml-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+
+        img {
+          pointer-events: none;
         }
       `}</style>
     </main>
