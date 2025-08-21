@@ -23,4 +23,10 @@ export const projects = [
       "An infinite draggable grid of images with a parallax scroll effect using GSAP.",
     url: "/infinite-parallax-grid",
   },
+  {
+    name: "Image Trail",
+    description:
+      "An interactive image trail animaion that follows your cursor using GSAP.",
+    url: "/image-trail",
+  },
 ];
