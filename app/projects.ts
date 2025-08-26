@@ -24,9 +24,15 @@ export const projects = [
     url: "/infinite-parallax-grid",
   },
   {
-    name: "Image Trail",
+    name: "Image Trail Animation",
     description:
       "An interactive image trail animaion that follows your cursor using GSAP.",
     url: "/image-trail",
+  },
+  {
+    name: "3D Photo Carousel",
+    description:
+      "A 3D cylindrical photo carousel with drag, scroll, and momentum rotation using Framer Motion.",
+    url: "/3d-photo-carousel",
   },
 ];
