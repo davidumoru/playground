@@ -90,12 +90,10 @@ function CarouselFace({
           src={imageUrl}
           alt={`Gallery image ${index + 1}`}
           fill
-          sizes="1200px"
+          sizes="(max-width: 768px) 90vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover pointer-events-none select-none"
-          style={{ imageRendering: "crisp-edges" }}
           priority={index < 6}
           draggable={false}
-          unoptimized
         />
       </div>
     </div>
