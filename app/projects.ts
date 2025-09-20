@@ -35,4 +35,10 @@ export const projects = [
       "A 3D cylindrical photo carousel with drag, scroll, and momentum rotation using Framer Motion.",
     url: "/3d-photo-carousel",
   },
+  {
+    name: "3D Hover Transform",
+    description:
+      "An 3D image component with hover transformations and auto-cycling states using CSS transforms.",
+    url: "/3d-hover-transform",
+  }
 ];
