@@ -61,7 +61,7 @@ export default function ScrollGallery() {
   return (
     <main className="overflow-hidden">
       <div className='h-[100vh]'/>
-      <div ref={container} className="space-y-16">
+      <div ref={container}>
         <Slide 
           images={imageUrls.slice(0, 6)} 
           direction={'left'} 
@@ -93,7 +93,7 @@ const Slide: React.FC<SlideProps> = (props) => {
   return (
     <motion.div 
       style={{x: translateX, left: props.left}} 
-      className="relative flex whitespace-nowrap py-4"
+      className="relative flex whitespace-nowrap py-4 gap-6"
     >
       <ImageRow images={props.images}/>
       <ImageRow images={props.images}/>
@@ -104,7 +104,7 @@ const Slide: React.FC<SlideProps> = (props) => {
 
 const ImageRow: React.FC<ImageRowProps> = ({images}) => {
   return (
-    <div className={'px-6 flex gap-6 items-center'}>
+    <div className={'flex gap-6 items-center'}>
       {images.map((imageUrl, index) => (
         <div 
           key={index}
