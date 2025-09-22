@@ -40,5 +40,11 @@ export const projects = [
     description:
       "An 3D image component with hover transformations and auto-cycling states using CSS transforms.",
     url: "/3d-hover-transform",
-  }
+  },
+  {
+    name: "Horizontal Scroll Gallery",
+    description:
+      "A smooth horizontal scroll gallery with alternating directional movement using Framer Motion.",
+    url: "/horizontal-scroll-gallery",
+  },
 ];
