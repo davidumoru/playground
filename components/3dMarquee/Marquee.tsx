@@ -1,4 +1,5 @@
 import { motion, Variants } from "framer-motion";
+import Image from "next/image";
 
 interface MarqueeProps {
   images: string[];
@@ -32,16 +33,18 @@ export const Marquee = ({
       >
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="flex flex-shrink-0">
-            {images.map((url) => (
+            {images.map((url, index) => (
               <div
-                key={url}
+                key={`${url}-${index}`}
                 className="relative mx-3 h-64 w-64 flex-shrink-0 overflow-hidden"
               >
-                <img
+                <Image
                   src={url}
                   alt=""
+                  fill
                   draggable={false}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  className="object-cover"
+                  unoptimized
                 />
               </div>
             ))}
