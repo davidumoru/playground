@@ -1,5 +1,5 @@
 import { experiments } from "@/lib/experiments"
-import ExperimentPageClient from "./page.client.tsx"
+import ExperimentPageClient from "./page.client"
 
 interface Props {
   params: Promise<{ id: string }>

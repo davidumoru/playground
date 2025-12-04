@@ -11,7 +11,7 @@ export default function Home() {
       <header>
         <div className="container mx-auto px-6 py-6">
           <div className="flex items-center gap-3">
-            <div className="size-8 rounded-lg bg-accent" />
+            <div className="size-6 rounded-lg bg-accent" />
             <h1 className="text-lg font-medium text-foreground">Playground</h1>
           </div>
         </div>
