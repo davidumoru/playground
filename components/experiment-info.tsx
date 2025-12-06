@@ -68,9 +68,9 @@ export function ExperimentInfo({ experiment }: ExperimentInfoProps) {
                     <p className="text-sm text-white/50 mb-3">Features:</p>
                     <div className="flex flex-wrap gap-2">
                       {experiment.tags.map((tag) => (
-                        <code key={tag} className="px-3 py-1.5 rounded-md bg-white/10 text-white/80 text-sm font-mono">
+                        <span key={tag} className="px-3 py-1.5 rounded-md bg-white/10 text-white/80 text-sm">
                           {tag}
-                        </code>
+                        </span>
                       ))}
                     </div>
                   </div>
