@@ -139,4 +139,17 @@ export const experiments: Experiment[] = [
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
   },
+  {
+    id: "vercel-tabs",
+    title: "Vercel Tabs",
+    description: "A navigation component with a sliding active indicator and smooth hover effects, similar to the Vercel dashboard.",
+    category: "layout",
+    tags: ["tabs", "navigation", "animation", "react"],
+    author: "David Umoru",
+    authorUrl: "https://x.com/theumoru",
+    sourceUrl: "#",
+    createdAt: "2025-12-06",
+    component: "VercelTabs",
+    previewImage: "/images/previews/vercel-tabs.jpg",
+  },
 ]
