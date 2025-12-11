@@ -9,7 +9,7 @@ export interface Experiment {
   sourceUrl: string
   createdAt: string
   component: string
-  previewImage?: string // Added preview image field
+  previewImage?: string
 }
 
 export const experiments: Experiment[] = [
@@ -151,5 +151,31 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-06",
     component: "VercelTabs",
     previewImage: "/images/previews/vercel-tabs.jpg",
+  },
+  {
+    id: "scroll-image-reveal",
+    title: "Scroll Image Reveal",
+    description: "A vertical scroll container that reveals stacked images using sticky positioning and dynamic clip-path masking. Features smooth scaling, brightness transitions, and a custom scroll progress indicator.",
+    category: "layout",
+    tags: ["scroll", "sticky", "clip-path", "gallery"],
+    author: "David Umoru",
+    authorUrl: "https://x.com/theumoru",
+    sourceUrl: "#",
+    createdAt: "2025-12-06",
+    component: "ScrollImageReveal",
+    previewImage: "/images/previews/scroll-image-reveal.jpg",
+  },
+  {
+    id: "infinite-canvas",
+    title: "Infinite Canvas",
+    description: "An infinite, draggable image grid featuring physics-based inertia, hover spotlight effects, and seamless zoom-to-preview transitions.",
+    category: "interaction",
+    tags: ["gsap", "drag", "grid", "gallery"],
+    author: "David Umoru",
+    authorUrl: "https://x.com/theumoru",
+    sourceUrl: "#",
+    createdAt: "2025-12-11",
+    component: "InfiniteCanvas",
+    previewImage: "/images/previews/infinite-canvas.jpg",
   },
 ]

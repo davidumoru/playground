@@ -74,7 +74,13 @@ const experiments: Record<string, React.ComponentType> = {
   MagneticCards: dynamic(() => import("./experiments/magnetic-cards"), {
     loading: () => <ExperimentLoader />,
   }),
-   VercelTabs: dynamic(() => import("./experiments/vercel-tabs"), {
+  VercelTabs: dynamic(() => import("./experiments/vercel-tabs"), {
+    loading: () => <ExperimentLoader />,
+  }),
+  ScrollImageReveal: dynamic(() => import("./experiments/scroll-image-reveal"), {
+    loading: () => <ExperimentLoader />,
+  }),
+  InfiniteCanvas: dynamic(() => import("./experiments/infinite-canvas"), {
     loading: () => <ExperimentLoader />,
   }), 
 }
