@@ -3,7 +3,6 @@
 import type React from "react"
 import { useEffect, useRef, useCallback, useState, useMemo } from "react"
 import gsap from "gsap"
-import Image from "next/image"
 
 interface InfiniteCanvasProps {
   images?: string[]
@@ -502,13 +501,11 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
             }}
             onClick={() => handleImageClick(tile.key, tile.src)}
           >
-            <Image
+            <img
               src={tile.src || "/placeholder.svg"}
               alt=""
-              fill
-              className="object-cover pointer-events-none"
+              className="object-cover pointer-events-none w-full h-full"
               draggable={false}
-              sizes="(max-width: 768px) 50vw, 33vw"
             />
           </div>
         ))}
@@ -544,13 +541,10 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <Image
+            <img
               src={selectedImage || "/placeholder.svg"}
               alt=""
-              fill
-              className="object-cover block"
-              priority
-              sizes="100vw"
+              className="object-cover block w-full h-full"
             />
           </div>
         </div>
