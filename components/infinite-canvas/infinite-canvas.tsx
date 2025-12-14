@@ -1,8 +1,9 @@
 "use client"
 
 import type React from "react"
-import { useEffect, useRef, useCallback, useState } from "react"
+import { useEffect, useRef, useCallback, useState, useMemo } from "react"
 import gsap from "gsap"
+import Image from "next/image"
 
 interface InfiniteCanvasProps {
   images?: string[]
@@ -20,22 +21,24 @@ const columnOffsets = [0, -120, -60, -180, -40, -140]
 export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50 }: InfiniteCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
+  
   const positionRef = useRef({ x: 0, y: 0 })
   const velocityRef = useRef({ x: 0, y: 0 })
   const isDraggingRef = useRef(false)
   const lastPointerRef = useRef({ x: 0, y: 0 })
-  const rafRef = useRef<number | null>(null)
   const dragDistanceRef = useRef(0)
+  
+  const xSet = useRef<((value: number) => void) | null>(null)
+  const ySet = useRef<((value: number) => void) | null>(null)
+  
   const tileRefs = useRef<Map<string, HTMLDivElement>>(new Map())
   const entranceAnimationRef = useRef<gsap.core.Tween | null>(null)
-  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
   
   const clickedRectRef = useRef<DOMRect | null>(null)
   
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [selectedTileSize, setSelectedTileSize] = useState<{ width: number; height: number } | null>(null)
   const [isPreviewOpen, setIsPreviewOpen] = useState(false)
-  const [hoveredKey, setHoveredKey] = useState<string | null>(null)
   const [activeKey, setActiveKey] = useState<string | null>(null)
   const [isRestoring, setIsRestoring] = useState(false)
   
@@ -67,93 +70,138 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
   const imageList = images || defaultImages
 
   const columnWidth = imageWidth + gap
-  const gridWidth = columnWidth * columns
-
   const imagesPerColumn = 6
 
-  const getColumnHeight = (colIndex: number) => {
-    let height = 0
-    for (let i = 0; i < imagesPerColumn; i++) {
-      const imageIndex = (colIndex * imagesPerColumn + i) % imageList.length
-      const ratio = heightRatios[imageIndex % heightRatios.length]
-      height += imageWidth * ratio
-      if (i < imagesPerColumn - 1) {
-        height += gap
-      }
-    }
-    return height + gap
-  }
-
-  const gridHeight = Math.max(...Array.from({ length: columns }, (_, i) => getColumnHeight(i)))
-
-  const tiles = Array.from({ length: 9 }, (_, tileIndex) => {
-    const tileRow = Math.floor(tileIndex / 3) - 1
-    const tileCol = (tileIndex % 3) - 1
-
-    const columnTiles: Array<{
-      x: number
-      y: number
-      src: string
-      key: string
-      width: number
-      height: number
-    }> = []
-
-    for (let colIndex = 0; colIndex < columns; colIndex++) {
-      const columnHeight = getColumnHeight(colIndex)
+  const masterColumnLayouts = useMemo(() => {
+    const rawColumns = Array.from({ length: columns }, (_, colIndex) => {
       const baseOffset = columnOffsets[colIndex % columnOffsets.length]
+      const images = []
       let yOffset = 0
 
       for (let rowIndex = 0; rowIndex < imagesPerColumn; rowIndex++) {
         const imageIndex = (colIndex * imagesPerColumn + rowIndex) % imageList.length
         const ratio = heightRatios[imageIndex % heightRatios.length]
-        const imageHeight = imageWidth * ratio
+        const imageHeight = Math.round(imageWidth * ratio)
 
-        columnTiles.push({
-          x: tileCol * gridWidth + colIndex * columnWidth,
-          y: tileRow * columnHeight + baseOffset + yOffset,
+        images.push({
           src: imageList[imageIndex],
-          key: `${tileIndex}-${colIndex}-${rowIndex}`,
           width: imageWidth,
           height: imageHeight,
+          rowIndex,
+          originalHeight: imageHeight 
         })
 
         yOffset += imageHeight + gap
       }
-    }
 
-    return columnTiles
-  }).flat()
+      return {
+        baseOffset,
+        images,
+        contentHeight: yOffset, 
+      }
+    })
+
+    const maxContentHeight = Math.max(...rawColumns.map((c) => c.contentHeight))
+
+    return rawColumns.map((col) => {
+      const heightDeficit = maxContentHeight - col.contentHeight
+      const addPerImage = heightDeficit / imagesPerColumn
+
+      let currentY = 0
+      
+      const adjustedImages = col.images.map((img) => {
+        const newHeight = img.originalHeight + addPerImage
+        
+        const imageObj = {
+          ...img,
+          relativeY: Math.round(col.baseOffset + currentY),
+          height: newHeight, 
+        }
+        
+        currentY += newHeight + gap
+        return imageObj
+      })
+
+      return {
+        images: adjustedImages,
+        totalHeight: Math.round(col.baseOffset + currentY), 
+      }
+    })
+  }, [columns, imageWidth, gap, imageList])
+
+  const gridWidth = columnWidth * columns
+  const gridHeight = Math.max(...masterColumnLayouts.map(col => col.totalHeight))
+
+  const tiles = useMemo(() => {
+    return Array.from({ length: 9 }, (_, tileIndex) => {
+      const tileRow = Math.floor(tileIndex / 3) - 1
+      const tileCol = (tileIndex % 3) - 1
+
+      const columnTiles: Array<{
+        x: number
+        y: number
+        src: string
+        key: string
+        width: number
+        height: number
+      }> = []
+
+      for (let colIndex = 0; colIndex < columns; colIndex++) {
+        const layout = masterColumnLayouts[colIndex]
+        
+        layout.images.forEach((img) => {
+          columnTiles.push({
+            x: tileCol * gridWidth + colIndex * columnWidth,
+            y: tileRow * gridHeight + img.relativeY, 
+            src: img.src,
+            key: `${tileIndex}-${colIndex}-${img.rowIndex}`,
+            width: img.width,
+            height: img.height,
+          })
+        })
+      }
+
+      return columnTiles
+    }).flat()
+  }, [columns, columnWidth, gridWidth, gridHeight, masterColumnLayouts])
+
+  useEffect(() => {
+    if (gridRef.current) {
+      xSet.current = gsap.quickSetter(gridRef.current, "x", "px") as (value: number) => void
+      ySet.current = gsap.quickSetter(gridRef.current, "y", "px") as (value: number) => void
+    }
+  }, [])
 
   const updatePosition = useCallback(() => {
-    if (!gridRef.current) return
+    if (!gridRef.current || !xSet.current || !ySet.current) return
     if (isPreviewOpen) return
 
     if (!isDraggingRef.current) {
       velocityRef.current.x *= 0.95
       velocityRef.current.y *= 0.95
 
-      positionRef.current.x += velocityRef.current.x
-      positionRef.current.y += velocityRef.current.y
-
-      if (Math.abs(velocityRef.current.x) < 0.1 && Math.abs(velocityRef.current.y) < 0.1) {
+      if (Math.abs(velocityRef.current.x) < 0.05 && Math.abs(velocityRef.current.y) < 0.05) {
         velocityRef.current.x = 0
         velocityRef.current.y = 0
       }
     }
 
-    positionRef.current.x = ((positionRef.current.x % gridWidth) + gridWidth) % gridWidth
-    positionRef.current.y = ((positionRef.current.y % gridHeight) + gridHeight) % gridHeight
+    positionRef.current.x += velocityRef.current.x
+    positionRef.current.y += velocityRef.current.y
 
-    gsap.set(gridRef.current, {
-      x: positionRef.current.x - gridWidth,
-      y: positionRef.current.y - gridHeight,
-    })
+    const wrappedX = ((positionRef.current.x % gridWidth) + gridWidth) % gridWidth
+    const wrappedY = ((positionRef.current.y % gridHeight) + gridHeight) % gridHeight
 
-    if (isDraggingRef.current || Math.abs(velocityRef.current.x) > 0.1 || Math.abs(velocityRef.current.y) > 0.1) {
-      rafRef.current = requestAnimationFrame(updatePosition)
-    }
+    xSet.current(wrappedX - gridWidth)
+    ySet.current(wrappedY - gridHeight)
   }, [gridWidth, gridHeight, isPreviewOpen])
+
+  useEffect(() => {
+    gsap.ticker.add(updatePosition)
+    return () => {
+      gsap.ticker.remove(updatePosition)
+    }
+  }, [updatePosition])
 
   const handlePointerDown = useCallback(
     (e: React.PointerEvent) => {
@@ -163,12 +211,9 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
       lastPointerRef.current = { x: e.clientX, y: e.clientY }
       velocityRef.current = { x: 0, y: 0 }
       dragDistanceRef.current = 0
-
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      rafRef.current = requestAnimationFrame(updatePosition)
       ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
     },
-    [updatePosition, isPreviewOpen],
+    [isPreviewOpen],
   )
 
   const handlePointerMove = useCallback((e: React.PointerEvent) => {
@@ -182,8 +227,8 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
     positionRef.current.x += dx
     positionRef.current.y += dy
 
-    velocityRef.current.x = dx * 0.8
-    velocityRef.current.y = dy * 0.8
+    velocityRef.current.x = dx
+    velocityRef.current.y = dy
 
     lastPointerRef.current = { x: e.clientX, y: e.clientY }
   }, [])
@@ -199,31 +244,11 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
 
       e.preventDefault()
 
-      positionRef.current.x -= e.deltaX * 0.5
-      positionRef.current.y -= e.deltaY * 0.5
-
-      velocityRef.current.x = -e.deltaX * 0.3
-      velocityRef.current.y = -e.deltaY * 0.3
-
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-      rafRef.current = requestAnimationFrame(updatePosition)
+      velocityRef.current.x -= e.deltaX * 0.02
+      velocityRef.current.y -= e.deltaY * 0.02
     },
-    [updatePosition, isPreviewOpen],
+    [isPreviewOpen],
   )
-
-  const handleMouseEnter = useCallback((key: string) => {
-    if (hoverTimeoutRef.current) {
-        clearTimeout(hoverTimeoutRef.current)
-        hoverTimeoutRef.current = null
-    }
-    setHoveredKey(key)
-  }, [])
-
-  const handleMouseLeave = useCallback(() => {
-    hoverTimeoutRef.current = setTimeout(() => {
-        setHoveredKey(null)
-    }, 200) as unknown as NodeJS.Timeout
-  }, [])
 
   const slideOutImages = useCallback((clickedKey: string, originX: number, originY: number) => {
     const container = containerRef.current
@@ -277,10 +302,6 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
   const handleImageClick = useCallback(
     (key: string, src: string) => {
       if (dragDistanceRef.current < 5) {
-        if (rafRef.current) {
-            cancelAnimationFrame(rafRef.current)
-        }
-        
         if (entranceAnimationRef.current && entranceAnimationRef.current.isActive()) {
             entranceAnimationRef.current.progress(1).kill();
         }
@@ -411,15 +432,13 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
     const container = containerRef.current
     if (!container) return
 
-    requestAnimationFrame(() => updatePosition())
-
-    container.addEventListener("wheel", handleWheel, { passive: false })
+    const handleWheelEvent = (e: WheelEvent) => handleWheel(e)
+    container.addEventListener("wheel", handleWheelEvent, { passive: false })
 
     return () => {
-      container.removeEventListener("wheel", handleWheel)
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+      container.removeEventListener("wheel", handleWheelEvent)
     }
-  }, [handleWheel, updatePosition])
+  }, [handleWheel])
 
   const setTileRef = useCallback((key: string, src: string, element: HTMLDivElement | null) => {
     const refKey = `${key}|${src}`
@@ -462,7 +481,7 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
     >
       <div
         ref={gridRef}
-        className="absolute"
+        className="absolute will-change-transform"
         style={{
           width: gridWidth * 3,
           height: gridHeight * 3,
@@ -478,18 +497,18 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
               top: tile.y + gridHeight,
               width: tile.width,
               height: tile.height,
-              opacity: activeKey === tile.key ? 0 : (hoveredKey && hoveredKey !== tile.key ? 0.3 : 1),
-              transition: isRestoring ? "none" : "opacity 0.3s ease",
+              opacity: activeKey === tile.key ? 0 : 1,
+              transition: (activeKey === tile.key || isRestoring) ? "none" : "opacity 0.3s ease",
             }}
             onClick={() => handleImageClick(tile.key, tile.src)}
-            onMouseEnter={() => handleMouseEnter(tile.key)}
-            onMouseLeave={handleMouseLeave}
           >
-            <img
+            <Image
               src={tile.src || "/placeholder.svg"}
               alt=""
-              className="w-full h-full object-cover pointer-events-none"
+              fill
+              className="object-cover pointer-events-none"
               draggable={false}
+              sizes="(max-width: 768px) 50vw, 33vw"
             />
           </div>
         ))}
@@ -525,10 +544,13 @@ export function InfiniteCanvas({ images, columns = 5, imageWidth = 220, gap = 50
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            <img
+            <Image
               src={selectedImage || "/placeholder.svg"}
               alt=""
-              className="w-full h-full object-cover block"
+              fill
+              className="object-cover block"
+              priority
+              sizes="100vw"
             />
           </div>
         </div>
