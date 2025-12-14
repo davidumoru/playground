@@ -32,46 +32,13 @@ const experiments: Record<string, React.ComponentType> = {
   StickyScrollCards: dynamic(() => import("./experiments/sticky-scroll-cards"), {
     loading: () => <ExperimentLoader />,
   }),
-  KeyframeWildcards: dynamic(() => import("./experiments/keyframe-wildcards"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  LiquidButton: dynamic(() => import("./experiments/liquid-button"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  GenerativeGrid: dynamic(() => import("./experiments/generative-grid"), {
-    loading: () => <ExperimentLoader />,
-  }),
   ScrollVelocity: dynamic(() => import("./experiments/scroll-velocity"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  ShaderGradient: dynamic(() => import("./experiments/shader-gradient"), {
     loading: () => <ExperimentLoader />,
   }),
   BentoHover: dynamic(() => import("./experiments/bento-hover"), {
     loading: () => <ExperimentLoader />,
   }),
-  TextScramble: dynamic(() => import("./experiments/text-scramble"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  FloatingCube: dynamic(() => import("./experiments/floating-cube"), {
-    loading: () => <ExperimentLoader />,
-  }),
   InfiniteCarousel: dynamic(() => import("./experiments/infinite-carousel"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  ParticleField: dynamic(() => import("./experiments/particle-field"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  SmoothParallax: dynamic(() => import("./experiments/smooth-parallax"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  ModelViewer: dynamic(() => import("./experiments/3d-model-viewer"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  TextReveal: dynamic(() => import("./experiments/text-reveal"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  MagneticCards: dynamic(() => import("./experiments/magnetic-cards"), {
     loading: () => <ExperimentLoader />,
   }),
   VercelTabs: dynamic(() => import("./experiments/vercel-tabs"), {
