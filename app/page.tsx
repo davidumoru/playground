@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { experiments } from "@/lib/experiments";
+import { sortedExperiments as experiments } from "@/lib/experiments";
 import Image from "next/image";
 
 function formatDate(dateString: string): string {
@@ -16,9 +16,31 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <header>
         <div className="container mx-auto px-6 py-6">
-          <div className="flex items-center gap-3">
-            <div className="size-6 rounded-lg bg-accent" />
-            <h1 className="text-lg font-medium text-foreground">Playground</h1>
+          <div className="flex items-center justify-between">
+            <a
+              href="/"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Playground -- David Umoru
+            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://x.com/theumoru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                X
+              </a>
+              <a
+                href="https://github.com/davidumoru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -39,8 +61,8 @@ export default function Home() {
                 href={`/experiments/${experiment.id}`}
                 className="group block"
               >
-                <div className="bg-white rounded-xl border border-border/70 overflow-hidden flex flex-col h-full">
-                  <div className="p-5 pb-4">
+                <div className="bg-white rounded-xl border border-border overflow-hidden flex flex-col h-full">
+                  <div className="p-5 pb-1.5">
                     <div className="flex items-center justify-between">
                       <h3 className="text-base font-medium text-foreground tracking-tight">
                         {experiment.title}
@@ -51,9 +73,9 @@ export default function Home() {
                     </div>
                   </div>
 
-                  <div className="relative overflow-hidden px-5 mb-4">
+                  <div className="relative overflow-hidden px-1.5 mb-1.5">
                     <div
-                      className="relative w-full"
+                      className="relative w-full rounded-md overflow-hidden"
                       style={{ aspectRatio: "16/10" }}
                     >
                       {experiment.previewVideo ? (
@@ -63,14 +85,14 @@ export default function Home() {
                           loop
                           muted
                           playsInline
-                          className="w-full h-full object-cover rounded"
+                          className="absolute inset-0 w-full h-full object-cover"
                         />
                       ) : (
                         <Image
                           src={`${experiment.previewImage}`}
                           alt={experiment.title}
                           fill
-                          className="object-cover rounded"
+                          className="object-cover"
                         />
                       )}
                     </div>

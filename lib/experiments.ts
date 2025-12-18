@@ -223,7 +223,9 @@ export const experiments: Experiment[] = [
     previewImage: "/images/previews/circular-scroll.jpg",
     previewVideo: "/images/previews/circular-scroll.mp4",
   },
-].sort((a, b) => {
+];
+
+export const sortedExperiments: Experiment[] = [...experiments].sort((a, b) => {
   const dateA = new Date(a.createdAt).getTime();
   const dateB = new Date(b.createdAt).getTime();
   return dateB - dateA;

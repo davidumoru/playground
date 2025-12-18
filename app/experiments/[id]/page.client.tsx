@@ -1,37 +1,41 @@
-"use client"
+"use client";
 
-import { notFound } from "next/navigation"
-import Link from "next/link"
-import { ChevronLeft, ChevronRight, Check, LinkIcon } from "lucide-react"
-import { experiments } from "@/lib/experiments"
-import { ExperimentDisplay } from "@/components/experiment-display"
-import { ExperimentInfo } from "@/components/experiment-info"
-import { Button } from "@/components/ui/button"
-import { useState } from "react"
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import { ChevronLeft, ChevronRight, Check, LinkIcon } from "lucide-react";
+import { experiments } from "@/lib/experiments";
+import { ExperimentDisplay } from "@/components/experiment-display";
+import { ExperimentInfo } from "@/components/experiment-info";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface Props {
-  params: { id: string }
+  params: { id: string };
 }
 
 export default function ExperimentPageClient({ params }: Props) {
-  const { id } = params
-  const [copied, setCopied] = useState(false)
+  const { id } = params;
+  const [copied, setCopied] = useState(false);
 
-  const currentIndex = experiments.findIndex((exp) => exp.id === id)
+  const currentIndex = experiments.findIndex((exp) => exp.id === id);
 
   if (currentIndex === -1) {
-    notFound()
+    notFound();
   }
 
-  const experiment = experiments[currentIndex]
-  const prevExperiment = currentIndex > 0 ? experiments[currentIndex - 1] : null
-  const nextExperiment = currentIndex < experiments.length - 1 ? experiments[currentIndex + 1] : null
+  const experiment = experiments[currentIndex];
+  const prevExperiment =
+    currentIndex > 0 ? experiments[currentIndex - 1] : null;
+  const nextExperiment =
+    currentIndex < experiments.length - 1
+      ? experiments[currentIndex + 1]
+      : null;
 
   const handleCopyUrl = async () => {
-    await navigator.clipboard.writeText(window.location.href)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
+    await navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -43,7 +47,6 @@ export default function ExperimentPageClient({ params }: Props) {
                 href="/"
                 className="flex items-center gap-2 hover:text-foreground transition-colors ease-ui animate-fast"
               >
-                <div className="size-4 rounded bg-foreground/80" />
                 Playground
               </Link>
               <ChevronRight className="size-4" />
@@ -51,8 +54,17 @@ export default function ExperimentPageClient({ params }: Props) {
             </div>
 
             <div className="flex items-center gap-2">
-              <Button asChild variant="default" size="sm" className="gap-2 btn-press h-8 text-xs">
-                <a href={experiment.sourceUrl} target="_blank" rel="noopener noreferrer">
+              <Button
+                asChild
+                variant="default"
+                size="sm"
+                className="gap-2 btn-press h-8 text-xs"
+              >
+                <a
+                  href={experiment.sourceUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <svg
                     className="size-3.5"
                     viewBox="0 0 24 24"
@@ -69,8 +81,17 @@ export default function ExperimentPageClient({ params }: Props) {
                 </a>
               </Button>
               <ExperimentInfo experiment={experiment} />
-              <Button onClick={handleCopyUrl} variant="secondary" size="icon" className="btn-press h-8 w-8">
-                {copied ? <Check className="size-3.5" /> : <LinkIcon className="size-3.5" />}
+              <Button
+                onClick={handleCopyUrl}
+                variant="secondary"
+                size="icon"
+                className="btn-press h-8 w-8"
+              >
+                {copied ? (
+                  <Check className="size-3.5" />
+                ) : (
+                  <LinkIcon className="size-3.5" />
+                )}
               </Button>
             </div>
           </div>
@@ -84,7 +105,12 @@ export default function ExperimentPageClient({ params }: Props) {
 
         <div className="fixed bottom-4 right-4 flex items-center gap-2 z-50">
           {prevExperiment && (
-            <Button asChild variant="secondary" size="sm" className="gap-1 btn-press h-8 text-xs">
+            <Button
+              asChild
+              variant="secondary"
+              size="sm"
+              className="gap-1 btn-press h-8 text-xs"
+            >
               <Link href={`/experiments/${prevExperiment.id}`}>
                 <ChevronLeft className="size-3.5" />
                 Prev
@@ -92,7 +118,12 @@ export default function ExperimentPageClient({ params }: Props) {
             </Button>
           )}
           {nextExperiment && (
-            <Button asChild variant="secondary" size="sm" className="gap-1 btn-press h-8 text-xs">
+            <Button
+              asChild
+              variant="secondary"
+              size="sm"
+              className="gap-1 btn-press h-8 text-xs"
+            >
               <Link href={`/experiments/${nextExperiment.id}`}>
                 Next
                 <ChevronRight className="size-3.5" />
@@ -102,5 +133,5 @@ export default function ExperimentPageClient({ params }: Props) {
         </div>
       </main>
     </div>
-  )
+  );
 }
