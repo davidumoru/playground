@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react"
 
 export function useAnimationFrame(callback: () => void) {
-  const requestRef = useRef<number>()
+  const requestRef = useRef<number | null>(null)
   const callbackRef = useRef(callback)
 
   useEffect(() => {
