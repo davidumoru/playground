@@ -1,15 +1,22 @@
 export interface Experiment {
-  id: string
-  title: string
-  description: string
-  category: "animation" | "interaction" | "generative" | "shader" | "layout" | "3d"
-  tags: string[]
-  author: string
-  authorUrl: string
-  sourceUrl: string
-  createdAt: string
-  component: string
-  previewImage?: string
+  id: string;
+  title: string;
+  description: string;
+  category:
+    | "animation"
+    | "interaction"
+    | "generative"
+    | "shader"
+    | "layout"
+    | "3d";
+  tags: string[];
+  author: string;
+  authorUrl: string;
+  sourceUrl: string;
+  createdAt: string;
+  component: string;
+  previewImage?: string;
+  previewVideo?: string;
 }
 
 export const experiments: Experiment[] = [
@@ -26,6 +33,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "DiagonalCarousel",
     previewImage: "/images/previews/diagonal-carousel.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-diagonal-carousel.mp4",
   },
   {
     id: "vertical-text-reveal",
@@ -40,6 +49,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "VerticalTextReveal",
     previewImage: "/images/previews/vertical-text-reveal.jpg",
+    previewVideo: "/images/previews/vertical-text-reveal.mp4",
   },
   {
     id: "three-d-hover-transform",
@@ -54,6 +64,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "ThreeDHoverTransform",
     previewImage: "/images/previews/three-d-hover-transform.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-hover-transform.mp4",
   },
   {
     id: "photo-sphere",
@@ -68,6 +80,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "PhotoSphere",
     previewImage: "/images/previews/photo-sphere.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/photo-sphere-2.mp4",
   },
   {
     id: "three-d-photo-carousel",
@@ -82,6 +96,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "ThreeDPhotoCarousel",
     previewImage: "/images/previews/three-d-photo-carousel.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-carousel.mp4",
   },
   {
     id: "hover-preview",
@@ -96,6 +112,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "HoverPreview",
     previewImage: "/images/previews/hover-preview.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/hover-preview.mp4",
   },
   {
     id: "image-trail",
@@ -110,6 +128,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "ImageTrail",
     previewImage: "/images/previews/image-trail.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/cursor-trail.mp4",
   },
   {
     id: "infinite-parallax-grid",
@@ -124,6 +144,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "InfiniteParallaxGrid",
     previewImage: "/images/previews/infinite-parallax-grid.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-parallax-grid.mp4",
   },
   {
     id: "sticky-scroll-cards",
@@ -138,11 +160,13 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
+    previewVideo: "/images/previews/sticky-scroll-cards.mp4",
   },
   {
     id: "vercel-tabs",
     title: "Vercel Tabs",
-    description: "A navigation component with a sliding active indicator and smooth hover effects, similar to the Vercel dashboard.",
+    description:
+      "A navigation component with a sliding active indicator and smooth hover effects, similar to the Vercel dashboard.",
     category: "layout",
     tags: ["tabs", "navigation", "animation", "react"],
     author: "David Umoru",
@@ -151,11 +175,13 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-06",
     component: "VercelTabs",
     previewImage: "/images/previews/vercel-tabs.jpg",
+    previewVideo: "/images/previews/vercel-tabs.mp4",
   },
   {
     id: "scroll-image-reveal",
     title: "Scroll Image Reveal",
-    description: "A vertical scroll container that reveals stacked images using sticky positioning and dynamic clip-path masking. Features smooth scaling, brightness transitions, and a custom scroll progress indicator.",
+    description:
+      "A vertical scroll container that reveals stacked images using sticky positioning and dynamic clip-path masking. Features smooth scaling, brightness transitions, and a custom scroll progress indicator.",
     category: "layout",
     tags: ["scroll", "sticky", "clip-path", "gallery"],
     author: "David Umoru",
@@ -164,11 +190,13 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-06",
     component: "ScrollImageReveal",
     previewImage: "/images/previews/scroll-image-reveal.jpg",
+    previewVideo: "/images/previews/scroll-image-reveal.mp4",
   },
   {
     id: "infinite-canvas",
     title: "Infinite Canvas",
-    description: "An infinite, draggable image grid featuring physics-based inertia, hover spotlight effects, and seamless zoom-to-preview transitions.",
+    description:
+      "An infinite, draggable image grid featuring physics-based inertia, hover spotlight effects, and seamless zoom-to-preview transitions.",
     category: "interaction",
     tags: ["gsap", "drag", "grid", "gallery"],
     author: "David Umoru",
@@ -177,5 +205,22 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-11",
     component: "InfiniteCanvas",
     previewImage: "/images/previews/infinite-canvas.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-canvas-2.mp4",
   },
-]
+  {
+    id: "circular-scroll",
+    title: "Circular Scroll",
+    description:
+      "A circular scroll animation with GSAP, featuring rotating text elements and smooth scrolling behavior.",
+    category: "interaction",
+    tags: ["gsap", "circular", "scroll", "animation"],
+    author: "David Umoru",
+    authorUrl: "https://x.com/theumoru",
+    sourceUrl: "#",
+    createdAt: "2025-12-11",
+    component: "CircularScroll",
+    previewImage: "/images/previews/circular-scroll.jpg",
+    previewVideo: "/images/previews/circular-scroll.mp4",
+  },
+];
