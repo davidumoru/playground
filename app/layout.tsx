@@ -1,73 +1,50 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Barlow_Condensed } from "next/font/google";
-import "./globals.css";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter, Barlow_Condensed } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
+import "./globals.css"
 
-import Header from "@/components/Header";
-import NavLinks from "@/components/NavLinks";
-import FooterLeft from "@/components/FooterLeft";
-import FooterRight from "@/components/FooterRight";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({ subsets: ["latin"] })
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const barlow = Barlow_Condensed({
-  weight: "900",
-  subsets: ["latin"],
+  weight: ["400", "700", "900"],
   variable: "--font-barlow-condensed",
-});
+})
 
 export const metadata: Metadata = {
-  title: "Playground - David Umoru",
-  description:
-    "A collection of interactive experiments, exploring WebGL, Canvas, generative visuals, and creative coding on the web.",
-  openGraph: {
-    url: "https://playground.davidumoru.me",
-    siteName: "Playground - David Umoru",
-    images: [
+  title: "Playground - UI Experiments",
+  description: "A collection of interactive UI and creative coding experiments",
+  generator: "v0.app",
+  icons: {
+    icon: [
       {
-        url: "https://playground.davidumoru.me/og.png",
-        width: 1200,
-        height: 630,
-        type: "image/png",
+        url: "/icon-light-32x32.png",
+        media: "(prefers-color-scheme: light)",
       },
       {
-        url: "https://playground.davidumoru.me/api/og",
+        url: "/icon-dark-32x32.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icon.svg",
+        type: "image/svg+xml",
       },
     ],
+    apple: "/apple-icon.png",
   },
-};
+}
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}: Readonly<{
+  children: React.ReactNode
+}>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${barlow.variable} antialiased bg-white min-h-screen font-sans`}
-      >
-        <div className="pointer-events-none select-none fixed inset-0 z-40">
-          <Header />
-          <NavLinks />
-          <FooterLeft />
-          <FooterRight />
-        </div>
-        <main className="relative z-0 min-h-screen">{children}</main>
+      <body className={`${inter.className} ${barlowCondensed.variable} antialiased`}>
+        {children}
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
