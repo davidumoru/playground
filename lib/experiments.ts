@@ -49,7 +49,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "VerticalTextReveal",
     previewImage: "/images/previews/vertical-text-reveal.jpg",
-    previewVideo: "/images/previews/vertical-text-reveal.mp4",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/vertical-text-reveal.mp4",
   },
   {
     id: "three-d-hover-transform",
@@ -160,7 +161,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-24",
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
-    previewVideo: "/images/previews/sticky-scroll-cards.mp4",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/stacked-images.mp4",
   },
   {
     id: "vercel-tabs",
@@ -175,7 +177,8 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-06",
     component: "VercelTabs",
     previewImage: "/images/previews/vercel-tabs.jpg",
-    previewVideo: "/images/previews/vercel-tabs.mp4",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/vercel-tabs.mp4",
   },
   {
     id: "scroll-image-reveal",
