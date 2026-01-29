@@ -19,7 +19,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <a
               href="/"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
             >
               Playground -- David Umoru
             </a>
@@ -28,7 +28,7 @@ export default function Home() {
                 href="https://x.com/theumoru"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 X
               </a>
@@ -36,7 +36,7 @@ export default function Home() {
                 href="https://github.com/davidumoru"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 GitHub
               </a>

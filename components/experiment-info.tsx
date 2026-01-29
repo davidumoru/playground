@@ -45,15 +45,15 @@ export function ExperimentInfo({ experiment }: ExperimentInfoProps) {
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="absolute left-8 top-8">
-                  <button className="flex items-center gap-2 text-white/60 hover:text-white/80 transition-colors">
+                  <div className="flex items-center gap-2 text-white/60">
                     <Info className="size-4" />
                     <span className="text-sm">Info</span>
-                  </button>
+                  </div>
                 </div>
 
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="absolute right-8 top-8 text-white/60 hover:text-white transition-colors btn-press"
+                  className="absolute right-8 top-8 text-white/60 hover:text-white hover:scale-110 transition-all duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] active:scale-95"
                 >
                   <X className="size-5" />
                 </button>
@@ -81,7 +81,7 @@ export function ExperimentInfo({ experiment }: ExperimentInfoProps) {
                       href={experiment.authorUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-[#0ea5e9] font-medium hover:underline transition-all"
+                      className="text-sm text-[#0ea5e9] font-medium hover:underline transition-all duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
                     >
                       {experiment.author}
                     </a>

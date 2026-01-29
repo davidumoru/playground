@@ -45,7 +45,7 @@ export default function ExperimentPageClient({ params }: Props) {
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <Link
                 href="/"
-                className="flex items-center gap-2 hover:text-foreground transition-colors ease-ui animate-fast"
+                className="flex items-center gap-2 hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 Playground
               </Link>
@@ -85,13 +85,24 @@ export default function ExperimentPageClient({ params }: Props) {
                 onClick={handleCopyUrl}
                 variant="secondary"
                 size="icon"
-                className="btn-press h-8 w-8"
+                className="h-8 w-8 btn-press"
               >
-                {copied ? (
-                  <Check className="size-3.5" />
-                ) : (
-                  <LinkIcon className="size-3.5" />
-                )}
+                <span className="relative flex items-center justify-center">
+                  <Check
+                    className={`size-4 absolute transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      copied
+                        ? "opacity-100 blur-0"
+                        : "opacity-0 blur-[2px]"
+                    }`}
+                  />
+                  <LinkIcon
+                    className={`size-3.5 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      copied
+                        ? "opacity-0 blur-[2px]"
+                        : "opacity-100 blur-0"
+                    }`}
+                  />
+                </span>
               </Button>
             </div>
           </div>
@@ -109,7 +120,7 @@ export default function ExperimentPageClient({ params }: Props) {
               asChild
               variant="secondary"
               size="sm"
-              className="gap-1 btn-press h-8 text-xs"
+              className="gap-1 h-8 text-xs hover:-translate-y-px"
             >
               <Link href={`/experiments/${prevExperiment.id}`}>
                 <ChevronLeft className="size-3.5" />
@@ -122,7 +133,7 @@ export default function ExperimentPageClient({ params }: Props) {
               asChild
               variant="secondary"
               size="sm"
-              className="gap-1 btn-press h-8 text-xs"
+              className="gap-1 h-8 text-xs hover:-translate-y-px"
             >
               <Link href={`/experiments/${nextExperiment.id}`}>
                 Next
