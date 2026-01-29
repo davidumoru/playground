@@ -1,6 +1,6 @@
 "use client"
 
-import { useScroll } from "framer-motion"
+import { useScroll } from "motion/react"
 import { useEffect, useRef } from "react"
 import Lenis from "lenis"
 import Card from "@/components/sticky-scroll-cards/card"

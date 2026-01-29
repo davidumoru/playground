@@ -3,7 +3,7 @@
 import type React from "react"
 
 import { useState, useEffect, useCallback } from "react"
-import { type PanInfo, motion, useAnimation, useMotionValue, useTransform } from "framer-motion"
+import { type PanInfo, motion, useAnimation, useMotionValue, useTransform } from "motion/react"
 import Image from "next/image"
 
 function useMediaQuery(query: string): boolean {

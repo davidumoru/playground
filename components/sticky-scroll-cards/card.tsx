@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import { useTransform, motion, useScroll, type MotionValue } from "framer-motion"
+import { useTransform, motion, useScroll, type MotionValue } from "motion/react"
 import { useRef, useState, useEffect } from "react"
 
 type CardProps = {

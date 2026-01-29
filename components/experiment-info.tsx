@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { Info, X } from "lucide-react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import type { Experiment } from "@/lib/experiments"
 
