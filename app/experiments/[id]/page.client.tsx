@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight, Check, LinkIcon } from "lucide-react";
-import { experiments } from "@/lib/experiments";
+import { sortedExperiments } from "@/lib/experiments";
 import { ExperimentDisplay } from "@/components/experiment-display";
 import { ExperimentInfo } from "@/components/experiment-info";
 import { Button } from "@/components/ui/button";
@@ -17,18 +17,18 @@ export default function ExperimentPageClient({ params }: Props) {
   const { id } = params;
   const [copied, setCopied] = useState(false);
 
-  const currentIndex = experiments.findIndex((exp) => exp.id === id);
+  const currentIndex = sortedExperiments.findIndex((exp) => exp.id === id);
 
   if (currentIndex === -1) {
     notFound();
   }
 
-  const experiment = experiments[currentIndex];
+  const experiment = sortedExperiments[currentIndex];
   const prevExperiment =
-    currentIndex > 0 ? experiments[currentIndex - 1] : null;
+    currentIndex > 0 ? sortedExperiments[currentIndex - 1] : null;
   const nextExperiment =
-    currentIndex < experiments.length - 1
-      ? experiments[currentIndex + 1]
+    currentIndex < sortedExperiments.length - 1
+      ? sortedExperiments[currentIndex + 1]
       : null;
 
   const handleCopyUrl = async () => {

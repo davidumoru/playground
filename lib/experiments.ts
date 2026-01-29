@@ -30,7 +30,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/diagonal-carousel.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-10-15",
     component: "DiagonalCarousel",
     previewImage: "/images/previews/diagonal-carousel.jpg",
     previewVideo:
@@ -46,7 +46,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/vertical-text-reveal.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-11-15",
     component: "VerticalTextReveal",
     previewImage: "/images/previews/vertical-text-reveal.jpg",
     previewVideo:
@@ -62,7 +62,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/three-d-hover-transform.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-09-20",
     component: "ThreeDHoverTransform",
     previewImage: "/images/previews/three-d-hover-transform.jpg",
     previewVideo:
@@ -78,7 +78,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/photo-sphere.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-11-22",
     component: "PhotoSphere",
     previewImage: "/images/previews/photo-sphere.jpg",
     previewVideo:
@@ -94,7 +94,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/three-d-photo-carousel.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-11-01",
     component: "ThreeDPhotoCarousel",
     previewImage: "/images/previews/three-d-photo-carousel.jpg",
     previewVideo:
@@ -110,7 +110,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/hover-preview.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-08-07",
     component: "HoverPreview",
     previewImage: "/images/previews/hover-preview.jpg",
     previewVideo:
@@ -126,7 +126,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/image-trail.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-08-18",
     component: "ImageTrail",
     previewImage: "/images/previews/image-trail.jpg",
     previewVideo:
@@ -142,7 +142,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/infinite-parallax-grid.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-10-08",
     component: "InfiniteParallaxGrid",
     previewImage: "/images/previews/infinite-parallax-grid.jpg",
     previewVideo:
@@ -158,7 +158,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/sticky-scroll-cards.tsx",
-    createdAt: "2025-11-24",
+    createdAt: "2025-09-10",
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
     previewVideo:
@@ -190,7 +190,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/scroll-image-reveal.tsx",
-    createdAt: "2025-12-06",
+    createdAt: "2025-12-03",
     component: "ScrollImageReveal",
     previewImage: "/images/previews/scroll-image-reveal.jpg",
     previewVideo: "/images/previews/scroll-image-reveal.mp4",
@@ -205,7 +205,7 @@ export const experiments: Experiment[] = [
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/infinite-canvas.tsx",
-    createdAt: "2025-12-11",
+    createdAt: "2025-12-05",
     component: "InfiniteCanvas",
     previewImage: "/images/previews/infinite-canvas.jpg",
     previewVideo:
