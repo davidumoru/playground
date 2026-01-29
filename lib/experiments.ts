@@ -26,7 +26,7 @@ export const experiments: Experiment[] = [
     description:
       "A smooth diagonal scrolling carousel with spring physics and curved motion paths. Features wheel, keyboard, and drag controls.",
     category: "interaction",
-    tags: ["carousel", "scroll", "spring", "motion"],
+    tags: ["motion", "useMotionValue", "useSpring", "useTransform", "animate"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/diagonal-carousel.tsx",
@@ -42,7 +42,7 @@ export const experiments: Experiment[] = [
     description:
       "Interactive text reveal animation with GSAP. Hover over profile images to reveal names with smooth staggered letter animations.",
     category: "animation",
-    tags: ["gsap", "text", "reveal", "stagger"],
+    tags: ["gsap", "gsap.to", "gsap.set", "stagger"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/vertical-text-reveal.tsx",
@@ -58,7 +58,7 @@ export const experiments: Experiment[] = [
     description:
       "Smooth 3D perspective transforms on hover with automated rotation cycles. Features spring-based easing and preserve-3d styling.",
     category: "3d",
-    tags: ["3d", "perspective", "transform", "hover"],
+    tags: ["css", "perspective", "transform3d", "transitions"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/three-d-hover-transform.tsx",
@@ -74,7 +74,7 @@ export const experiments: Experiment[] = [
     description:
       "Interactive 3D photo gallery with React Three Fiber. Switch between sphere, gallery, helix, wave, and cylinder layouts with smooth transitions.",
     category: "3d",
-    tags: ["r3f", "threejs", "gallery", "3d", "layout"],
+    tags: ["r3f", "three.js", "useFrame", "OrbitControls"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/photo-sphere.tsx",
@@ -90,7 +90,7 @@ export const experiments: Experiment[] = [
     description:
       "A cylindrical 3D photo carousel with drag and scroll controls. Features spring-based momentum physics and responsive sizing.",
     category: "3d",
-    tags: ["3d", "carousel", "drag", "perspective", "motion"],
+    tags: ["motion", "useMotionValue", "useTransform", "useAnimation"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/three-d-photo-carousel.tsx",
@@ -106,7 +106,7 @@ export const experiments: Experiment[] = [
     description:
       "Interactive portfolio list with cursor-following image preview modal. Features GSAP-powered smooth cursor tracking and touch support.",
     category: "interaction",
-    tags: ["hover", "cursor", "gsap", "modal", "preview"],
+    tags: ["gsap", "quickTo", "motion"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/hover-preview.tsx",
@@ -122,7 +122,7 @@ export const experiments: Experiment[] = [
     description:
       "Interactive cursor-following image trail with GSAP animations. Drag or move your cursor to create a dynamic trail of images with rotation and scale effects.",
     category: "interaction",
-    tags: ["gsap", "cursor", "trail", "animation", "interactive"],
+    tags: ["gsap", "gsap.to", "gsap.set", "useAnimationFrame"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/image-trail.tsx",
@@ -138,7 +138,7 @@ export const experiments: Experiment[] = [
     description:
       "An infinite scrolling grid with drag controls and smooth parallax effects. Features GSAP-powered intro animation and dynamic image repositioning.",
     category: "layout",
-    tags: ["parallax", "scroll", "grid", "gsap", "infinite"],
+    tags: ["gsap", "gsap.to", "gsap.set", "stagger"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/infinite-parallax-grid.tsx",
@@ -154,7 +154,7 @@ export const experiments: Experiment[] = [
     description:
       "Layered card stack with scroll-based scaling and zoom effects. Features smooth Lenis scrolling and responsive stacking behavior.",
     category: "layout",
-    tags: ["scroll", "stack", "lenis", "motion", "cards"],
+    tags: ["motion", "useScroll", "useTransform", "lenis"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/sticky-scroll-cards.tsx",
@@ -170,7 +170,7 @@ export const experiments: Experiment[] = [
     description:
       "A navigation component with a sliding active indicator and smooth hover effects, similar to the Vercel dashboard.",
     category: "layout",
-    tags: ["tabs", "navigation", "animation", "react"],
+    tags: ["css", "transitions"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/vercel-tabs.tsx",
@@ -186,7 +186,7 @@ export const experiments: Experiment[] = [
     description:
       "A vertical scroll container that reveals stacked images using sticky positioning and dynamic clip-path masking. Features smooth scaling, brightness transitions, and a custom scroll progress indicator.",
     category: "layout",
-    tags: ["scroll", "sticky", "clip-path", "gallery"],
+    tags: ["css", "clip-path", "transitions"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/scroll-image-reveal.tsx",
@@ -201,7 +201,7 @@ export const experiments: Experiment[] = [
     description:
       "An infinite, draggable image grid featuring physics-based inertia, hover spotlight effects, and seamless zoom-to-preview transitions.",
     category: "interaction",
-    tags: ["gsap", "drag", "grid", "gallery"],
+    tags: ["gsap", "quickSetter", "gsap.ticker", "gsap.fromTo"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/infinite-canvas.tsx",
@@ -217,7 +217,7 @@ export const experiments: Experiment[] = [
     description:
       "A circular scroll animation with GSAP, featuring rotating text elements and smooth scrolling behavior.",
     category: "interaction",
-    tags: ["gsap", "circular", "scroll", "animation"],
+    tags: ["gsap", "gsap.to", "gsap.fromTo", "gsap.ticker"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl: "https://github.com/davidumoru/playground/blob/main/components/experiments/circular-scroll.tsx",
