@@ -87,13 +87,15 @@ export default function Home() {
                           playsInline
                           className="absolute inset-0 w-full h-full object-cover"
                         />
-                      ) : (
+                      ) : experiment.previewImage ? (
                         <Image
-                          src={`${experiment.previewImage}`}
+                          src={experiment.previewImage}
                           alt={experiment.title}
                           fill
                           className="object-cover"
                         />
+                      ) : (
+                        <div className="absolute inset-0 bg-muted" />
                       )}
                     </div>
                   </div>
