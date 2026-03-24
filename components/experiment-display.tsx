@@ -41,12 +41,6 @@ const experiments: Record<string, React.ComponentType> = {
   InfiniteCarousel: dynamic(() => import("./experiments/infinite-carousel"), {
     loading: () => <ExperimentLoader />,
   }),
-  VercelTabs: dynamic(() => import("./experiments/vercel-tabs"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  ScrollImageReveal: dynamic(() => import("./experiments/scroll-image-reveal"), {
-    loading: () => <ExperimentLoader />,
-  }),
   InfiniteCanvas: dynamic(() => import("./experiments/infinite-canvas"), {
     loading: () => <ExperimentLoader />,
   }),

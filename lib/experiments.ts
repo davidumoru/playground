@@ -174,39 +174,6 @@ export const experiments: Experiment[] = [
       "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/stacked-images.mp4",
   },
   {
-    id: "vercel-tabs",
-    title: "Vercel Tabs",
-    description:
-      "A navigation component with a sliding active indicator and smooth hover effects, similar to the Vercel dashboard.",
-    category: "layout",
-    tags: ["css", "transitions"],
-    author: "David Umoru",
-    authorUrl: "https://x.com/theumoru",
-    sourceUrl:
-      "https://github.com/davidumoru/playground/blob/main/components/experiments/vercel-tabs.tsx",
-    createdAt: "2025-12-06",
-    component: "VercelTabs",
-    previewImage: "/images/previews/vercel-tabs.jpg",
-    previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/vercel-tabs.mp4",
-  },
-  {
-    id: "scroll-image-reveal",
-    title: "Scroll Image Reveal",
-    description:
-      "A vertical scroll container that reveals stacked images using sticky positioning and dynamic clip-path masking. Features smooth scaling, brightness transitions, and a custom scroll progress indicator.",
-    category: "layout",
-    tags: ["css", "clip-path", "transitions"],
-    author: "David Umoru",
-    authorUrl: "https://x.com/theumoru",
-    sourceUrl:
-      "https://github.com/davidumoru/playground/blob/main/components/experiments/scroll-image-reveal.tsx",
-    createdAt: "2025-12-03",
-    component: "ScrollImageReveal",
-    previewImage: "/images/previews/scroll-image-reveal.jpg",
-    previewVideo: "/images/previews/scroll-image-reveal.mp4",
-  },
-  {
     id: "infinite-canvas",
     title: "Infinite Canvas",
     description:
