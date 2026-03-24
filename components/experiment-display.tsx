@@ -32,15 +32,6 @@ const experiments: Record<string, React.ComponentType> = {
   StickyScrollCards: dynamic(() => import("./experiments/sticky-scroll-cards"), {
     loading: () => <ExperimentLoader />,
   }),
-  ScrollVelocity: dynamic(() => import("./experiments/scroll-velocity"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  BentoHover: dynamic(() => import("./experiments/bento-hover"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  InfiniteCarousel: dynamic(() => import("./experiments/infinite-carousel"), {
-    loading: () => <ExperimentLoader />,
-  }),
   InfiniteCanvas: dynamic(() => import("./experiments/infinite-canvas"), {
     loading: () => <ExperimentLoader />,
   }),
