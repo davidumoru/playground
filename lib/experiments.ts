@@ -194,9 +194,15 @@ export const experiments: Experiment[] = [
     id: "shader-orb",
     title: "Shader Orb",
     description:
-      "A vibrant warm watercolor shader orb in a dynamic listening state with simulated audio reactivity.",
+      "A vibrant, multi-themed watercolor shader orb in listening state featuring organic fluid motion.",
     category: "shader",
-    tags: ["webgl2", "glsl", "shader", "noise", "fbm"],
+    tags: [
+      "webgl2",
+      "glsl",
+      "shader",
+      "noise",
+      "fbm",
+    ],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl:
