@@ -35,7 +35,7 @@ export const experiments: Experiment[] = [
     component: "DiagonalCarousel",
     previewImage: "/images/previews/diagonal-carousel.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/diagonal-carousel.mp4",
+      "https://indevo.xyz/diagonal-carousel.mp4",
   },
   {
     id: "vertical-text-reveal",
@@ -52,7 +52,7 @@ export const experiments: Experiment[] = [
     component: "VerticalTextReveal",
     previewImage: "/images/previews/vertical-text-reveal.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/vertical-text-reveal.mp4",
+      "https://indevo.xyz/vertical-text-reveal.mp4",
   },
   {
     id: "three-d-hover-transform",
@@ -69,7 +69,7 @@ export const experiments: Experiment[] = [
     component: "ThreeDHoverTransform",
     previewImage: "/images/previews/three-d-hover-transform.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-hover-transform.mp4",
+      "https://indevo.xyz/3d-hover-transform.mp4",
   },
   {
     id: "photo-sphere",
@@ -86,7 +86,7 @@ export const experiments: Experiment[] = [
     component: "PhotoSphere",
     previewImage: "/images/previews/photo-sphere.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/photo-sphere.mp4",
+      "https://indevo.xyz/photo-sphere.mp4",
   },
   {
     id: "three-d-photo-carousel",
@@ -103,7 +103,7 @@ export const experiments: Experiment[] = [
     component: "ThreeDPhotoCarousel",
     previewImage: "/images/previews/three-d-photo-carousel.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-photo-carousel.mp4",
+      "https://indevo.xyz/3d-photo-carousel.mp4",
   },
   {
     id: "hover-preview",
@@ -120,7 +120,7 @@ export const experiments: Experiment[] = [
     component: "HoverPreview",
     previewImage: "/images/previews/hover-preview.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/hover-preview.mp4",
+      "https://indevo.xyz/hover-preview.mp4",
   },
   {
     id: "image-trail",
@@ -137,7 +137,7 @@ export const experiments: Experiment[] = [
     component: "ImageTrail",
     previewImage: "/images/previews/image-trail.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/image-trail.mp4",
+      "https://indevo.xyz/image-trail.mp4",
   },
   {
     id: "infinite-parallax-grid",
@@ -154,7 +154,7 @@ export const experiments: Experiment[] = [
     component: "InfiniteParallaxGrid",
     previewImage: "/images/previews/infinite-parallax-grid.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-parallax-grid.mp4",
+      "https://indevo.xyz/infinite-parallax-grid.mp4",
   },
   {
     id: "sticky-scroll-cards",
@@ -171,7 +171,7 @@ export const experiments: Experiment[] = [
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/sticky-scroll-cards.mp4",
+      "https://indevo.xyz/sticky-scroll-cards.mp4",
   },
   {
     id: "infinite-canvas",
@@ -188,7 +188,7 @@ export const experiments: Experiment[] = [
     component: "InfiniteCanvas",
     previewImage: "/images/previews/infinite-canvas.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-canvas-2.mp4",
+      "https://indevo.xyz/infinite-canvas-2.mp4",
   },
   {
     id: "shader-orb",
@@ -196,13 +196,7 @@ export const experiments: Experiment[] = [
     description:
       "A vibrant, multi-themed watercolor shader orb in listening state featuring organic fluid motion.",
     category: "shader",
-    tags: [
-      "webgl2",
-      "glsl",
-      "shader",
-      "noise",
-      "fbm",
-    ],
+    tags: ["webgl2", "glsl", "shader", "noise", "fbm"],
     author: "David Umoru",
     authorUrl: "https://x.com/theumoru",
     sourceUrl:
@@ -211,7 +205,7 @@ export const experiments: Experiment[] = [
     component: "ShaderOrb",
     previewImage: "/images/previews/chat-shader.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/shader-orb.mp4",
+      "https://indevo.xyz/shader-orb.mp4",
   },
   /*
   {
@@ -251,7 +245,7 @@ export const experiments: Experiment[] = [
     component: "PathMarquee",
     previewImage: "/images/previews/path-marquee.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/path-marquee.mp4",
+      "https://indevo.xyz/path-marquee.mp4",
   },
   /*
   {
