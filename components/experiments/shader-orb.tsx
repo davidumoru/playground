@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 const VERTEX_SHADER = `#version 300 es
@@ -33,23 +33,19 @@ precision highp float;
 in vec2 out_uv;
 out vec4 fragColor;
 
-// --- UNIFORMS ---
 uniform float u_time;
 uniform float u_stateTime;
 uniform vec2 u_viewport;
 
-// State uniforms
 uniform float u_stateListen;
 uniform float u_isListening;
 
-// Advanced effect uniforms
 uniform sampler2D uTextureNoise;
 uniform vec3 u_bloopColorMain;
 uniform vec3 u_bloopColorLow;
 uniform vec3 u_bloopColorMid;
 uniform vec3 u_bloopColorHigh;
 
-// --- DATA STRUCTURES ---
 struct ColoredSDF {
     float distance;
     vec4 color;
@@ -62,7 +58,6 @@ struct SDFArgs {
     float mainRadius;
 };
 
-// --- UTILITY & NOISE FUNCTIONS ---
 float scaled(float edge0, float edge1, float x) { return clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0); }
 float fixedSpring(float t, float d) {
     float s = mix(1.0 - exp(-E * 2.0 * t) * cos((1.0 - d) * 115.0 * t), 1.0, clamp(t, 0.0, 1.0));
@@ -159,21 +154,21 @@ ColoredSDF getListenState(SDFArgs args) {
     uv.y = 1.0 - uv.y;
 
     float noiseScale = 1.25;
-    float windSpeed = 0.075;
-    float warpPower = 0.19;
+    float windSpeed = 0.12;
+    float warpPower = 0.35;
     float waterColorNoiseScale = 18.0;
-    float waterColorNoiseStrength = 0.01;
+    float waterColorNoiseStrength = 0.02;
     float textureNoiseScale = 1.0;
-    float textureNoiseStrength = 0.08;
+    float textureNoiseStrength = 0.15;
     float verticalOffset = 0.09;
     float waveSpread = 1.0;
-    float layer1Amplitude = 1.0;
+    float layer1Amplitude = 1.5;
     float layer1Frequency = 1.0;
-    float layer2Amplitude = 1.0;
+    float layer2Amplitude = 1.4;
     float layer2Frequency = 1.0;
-    float layer3Amplitude = 1.0;
+    float layer3Amplitude = 1.3;
     float layer3Frequency = 1.0;
-    float fbmStrength = 1.0;
+    float fbmStrength = 1.2;
     float fbmPowerDamping = 0.55;
     float overallSoundScale = 1.0;
     float blurRadius = 1.0;
@@ -182,18 +177,15 @@ ColoredSDF getListenState(SDFArgs args) {
     float time = args.time * timescale * 0.85;
     verticalOffset += 1.0 - waveSpread;
 
-    // Warp UV with noise
     float noiseX = cnoise(vec3(uv * 1.0 + vec2(0.0, 74.8572), time * 0.3));
     float noiseY = cnoise(vec3(uv * 1.0 + vec2(203.91282, 10.0), time * 0.3));
     uv += vec2(noiseX * 2.0, noiseY) * warpPower;
 
-    // Water color noise
     float noiseA = cnoise(vec3(uv * waterColorNoiseScale + vec2(344.91282, 0.0), time * 0.3)) +
                    cnoise(vec3(uv * waterColorNoiseScale * 2.2 + vec2(723.937, 0.0), time * 0.4)) * 0.5;
     uv += noiseA * waterColorNoiseStrength;
     uv.y -= verticalOffset;
 
-    // Texture noise displacement
     vec2 textureUv = uv * textureNoiseScale;
     float textureSampleR0 = texture(uTextureNoise, textureUv).r;
     float textureSampleG0 = texture(uTextureNoise, vec2(textureUv.x, 1.0 - textureUv.y)).g;
@@ -211,7 +203,6 @@ ColoredSDF getListenState(SDFArgs args) {
     float textureNoiseDisp3 = mix(textureSampleR3 - 0.5, textureSampleG3 - 0.5, (sin(time) + 1.0) * 0.5) * textureNoiseStrength;
     uv += textureNoiseDisp0;
 
-    // FBM noise
     vec2 st_fbm = uv * noiseScale;
     vec2 q = vec2(0.0);
     q.x = fbm(st_fbm * 0.5 + windSpeed * time);
@@ -224,7 +215,6 @@ ColoredSDF getListenState(SDFArgs args) {
     fullFbm = pow(fullFbm, fbmPowerDamping);
     fullFbm *= fbmStrength;
 
-    // Wave layers
     blurRadius = blurRadius * 1.5;
 
     vec2 snUv = (uv + vec2((fullFbm - 0.5) * 1.2) + vec2(0.0, 0.025) + textureNoiseDisp0) * vec2(layer1Frequency, 1.0);
@@ -242,7 +232,6 @@ ColoredSDF getListenState(SDFArgs args) {
     sn2 = pow(sn2, 0.8);
     sn2Bis = pow(sn2Bis, 0.9);
 
-    // Color blending
     vec3 sinColor;
     sinColor = blendLinearBurn_13_5(u_bloopColorMain, u_bloopColorLow, 1.0 - sn2);
     sinColor = blendLinearBurn_13_5(sinColor, mix(u_bloopColorMain, u_bloopColorMid, 1.0 - sn2Bis), sn2);
@@ -254,7 +243,6 @@ ColoredSDF getListenState(SDFArgs args) {
     return sdf;
 }
 
-// --- MAIN SHADER ENTRYPOINT ---
 void main() {
     vec2 st = out_uv - 0.5;
     st.y *= u_viewport.y / u_viewport.x;
@@ -268,7 +256,6 @@ void main() {
     vec4 totalColor = vec4(0.0);
     float totalWeight = 0.0;
 
-    // Listen
     if (u_stateListen > 0.0) {
         SDFArgs tmp = args;
         tmp.duration = u_stateTime;
@@ -278,12 +265,10 @@ void main() {
         totalWeight += u_stateListen;
     }
 
-    // Final Rendering
     float clampingTolerance = 0.0075;
     float clampedShape = smoothstep(clampingTolerance, 0.0, totalDist);
     float alpha = totalColor.a * clampedShape;
 
-    // Normalize color by weight to prevent darkening during transitions
     vec3 finalColor = totalColor.rgb;
     if (totalWeight > 0.001) {
         finalColor /= totalWeight;
@@ -299,12 +284,38 @@ type ThemeColors = {
   high: [number, number, number];
 };
 
-const ORANGE_THEME: ThemeColors = {
-  main: [1.0, 0.914, 0.529],
-  low: [0.898, 0.545, 0.157],
-  mid: [0.984, 0.447, 0.337],
-  high: [0.953, 0.992, 0.996],
-};
+const THEMES = {
+  orange: {
+    main: [1.0, 0.95, 0.7],
+    low: [0.95, 0.75, 0.4],
+    mid: [0.98, 0.7, 0.6],
+    high: [1.0, 1.0, 1.0],
+  },
+  blue: {
+    main: [0.7, 0.85, 1.0],
+    low: [0.4, 0.6, 0.9],
+    mid: [0.5, 0.7, 1.0],
+    high: [0.9, 0.95, 1.0],
+  },
+  purple: {
+    main: [0.9, 0.75, 1.0],
+    low: [0.6, 0.45, 0.9],
+    mid: [0.7, 0.55, 1.0],
+    high: [0.95, 0.9, 1.0],
+  },
+  green: {
+    main: [0.75, 1.0, 0.85],
+    low: [0.4, 0.8, 0.6],
+    mid: [0.5, 0.9, 0.7],
+    high: [0.9, 1.0, 0.95],
+  },
+  crimson: {
+    main: [1.0, 0.75, 0.75],
+    low: [0.9, 0.5, 0.5],
+    mid: [1.0, 0.6, 0.6],
+    high: [1.0, 0.9, 0.9],
+  },
+} as const;
 
 let orbVisualWasReady = false;
 
@@ -426,7 +437,7 @@ function OrbVisualization({
     const handleContextRestored = () => {
     };
     canvas.addEventListener("webglcontextlost", handleContextLost);
-    canvas.addEventListener("webglcontextrestored", handleContextRestored);
+    canvas.addEventListener("webgentcontextrestored", handleContextRestored);
 
     let didCancel = false;
     let gl: WebGL2RenderingContext | null = null;
@@ -629,7 +640,7 @@ function OrbVisualization({
         ? Math.max(0, (now - Math.max(stateStartTimeRef.current, effectiveStart)) / 1000)
         : 0;
 
-      animationPhase += deltaTime * 0.65;
+      animationPhase += deltaTime * 0.95;
 
       const { width, height } = sizeRef.current;
       if (width === 0 || height === 0) {
@@ -696,5 +707,41 @@ function OrbVisualization({
 }
 
 export default function ShaderOrb() {
-  return <OrbVisualization themeColors={ORANGE_THEME} />;
+  const [activeTheme, setActiveTheme] = useState<keyof typeof THEMES>("orange");
+
+  return (
+    <div className="flex h-full w-full flex-col items-center justify-center py-64">
+      <div className="flex-1 flex items-center justify-center w-full">
+        <OrbVisualization themeColors={THEMES[activeTheme] as ThemeColors} />
+      </div>
+      
+      <div className="flex flex-col items-center gap-4">
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-white/30 drop-shadow-sm">
+          Shader Theme
+        </span>
+        <div className="flex gap-4">
+          {(Object.keys(THEMES) as Array<keyof typeof THEMES>).map((theme) => (
+            <button
+              key={theme}
+              onClick={() => setActiveTheme(theme)}
+              className={cn(
+                "group relative h-8 w-8 rounded-full p-0.5 transition-all duration-300 hover:scale-110 active:scale-90",
+                activeTheme === theme 
+                  ? "ring-2 ring-white/60 ring-offset-4 ring-offset-black" 
+                  : "ring-1 ring-white/10 hover:ring-white/30"
+              )}
+              title={theme.charAt(0).toUpperCase() + theme.slice(1)}
+            >
+              <div 
+                className="h-full w-full rounded-full shadow-lg"
+                style={{ 
+                  background: `linear-gradient(135deg, rgb(${THEMES[theme].main.map(c => Math.round(c * 255)).join(',')}), rgb(${THEMES[theme].low.map(c => Math.round(c * 255)).join(',')}))` 
+                }}
+              />
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
