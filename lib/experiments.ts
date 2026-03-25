@@ -35,7 +35,7 @@ export const experiments: Experiment[] = [
     component: "DiagonalCarousel",
     previewImage: "/images/previews/diagonal-carousel.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-diagonal-carousel.mp4",
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/diagonal-carousel.mp4",
   },
   {
     id: "vertical-text-reveal",
@@ -86,7 +86,7 @@ export const experiments: Experiment[] = [
     component: "PhotoSphere",
     previewImage: "/images/previews/photo-sphere.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/photo-sphere-2.mp4",
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/photo-sphere.mp4",
   },
   {
     id: "three-d-photo-carousel",
@@ -103,7 +103,7 @@ export const experiments: Experiment[] = [
     component: "ThreeDPhotoCarousel",
     previewImage: "/images/previews/three-d-photo-carousel.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-carousel.mp4",
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/3d-photo-carousel.mp4",
   },
   {
     id: "hover-preview",
@@ -137,7 +137,7 @@ export const experiments: Experiment[] = [
     component: "ImageTrail",
     previewImage: "/images/previews/image-trail.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/cursor-trail.mp4",
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/image-trail.mp4",
   },
   {
     id: "infinite-parallax-grid",
@@ -171,7 +171,7 @@ export const experiments: Experiment[] = [
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
     previewVideo:
-      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/stacked-images.mp4",
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/sticky-scroll-cards.mp4",
   },
   {
     id: "infinite-canvas",
@@ -201,10 +201,13 @@ export const experiments: Experiment[] = [
     authorUrl: "https://x.com/theumoru",
     sourceUrl:
       "https://github.com/davidumoru/playground/blob/main/components/experiments/shader-orb.tsx",
-    createdAt: "2026-02-12",
+    createdAt: "2026-03-25",
     component: "ShaderOrb",
     previewImage: "/images/previews/chat-shader.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/shader-orb.mp4",
   },
+  /*
   {
     id: "grain-gradient",
     title: "Grain Gradient",
@@ -220,6 +223,7 @@ export const experiments: Experiment[] = [
     component: "GrainGradient",
     previewImage: "/images/previews/chat-shader.jpg",
   },
+  */
   {
     id: "path-marquee",
     title: "Path Marquee",
@@ -240,7 +244,10 @@ export const experiments: Experiment[] = [
     createdAt: "2026-02-19",
     component: "PathMarquee",
     previewImage: "/images/previews/path-marquee.jpg",
+    previewVideo:
+      "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/path-marquee.mp4",
   },
+  /*
   {
     id: "portfolio-case-study",
     title: "Portfolio Case Study",
@@ -255,6 +262,7 @@ export const experiments: Experiment[] = [
     createdAt: "2026-03-12",
     component: "PortfolioCaseStudy",
   },
+  */
 ];
 
 export const sortedExperiments: Experiment[] = [...experiments].sort((a, b) => {
