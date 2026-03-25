@@ -35,9 +35,6 @@ const experiments: Record<string, React.ComponentType> = {
   InfiniteCanvas: dynamic(() => import("./experiments/infinite-canvas"), {
     loading: () => <ExperimentLoader />,
   }),
-  CircularScroll: dynamic(() => import("./experiments/circular-scroll"), {
-    loading: () => <ExperimentLoader />,
-  }),
   ShaderOrb: dynamic(() => import("./experiments/shader-orb"), {
     loading: () => <ExperimentLoader />,
   }),

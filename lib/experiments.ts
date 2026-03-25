@@ -191,22 +191,6 @@ export const experiments: Experiment[] = [
       "https://idfsjg9tmemggmgn.public.blob.vercel-storage.com/infinite-canvas-2.mp4",
   },
   {
-    id: "circular-scroll",
-    title: "Circular Scroll",
-    description:
-      "A circular scroll animation with GSAP, featuring rotating text elements and smooth scrolling behavior.",
-    category: "interaction",
-    tags: ["gsap", "gsap.to", "gsap.fromTo", "gsap.ticker"],
-    author: "David Umoru",
-    authorUrl: "https://x.com/theumoru",
-    sourceUrl:
-      "https://github.com/davidumoru/playground/blob/main/components/experiments/circular-scroll.tsx",
-    createdAt: "2025-12-11",
-    component: "CircularScroll",
-    previewImage: "/images/previews/circular-scroll.jpg",
-    previewVideo: "/images/previews/circular-scroll.mp4",
-  },
-  {
     id: "shader-orb",
     title: "Shader Orb",
     description:
