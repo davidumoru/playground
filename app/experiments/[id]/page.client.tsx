@@ -39,7 +39,7 @@ export default function ExperimentPageClient({ params }: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <header className="fixed top-0 left-0 right-0 z-1000">
         <div className="px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -114,7 +114,7 @@ export default function ExperimentPageClient({ params }: Props) {
           <ExperimentDisplay experimentId={experiment.component} />
         </div>
 
-        <div className="fixed bottom-4 right-4 flex items-center gap-2 z-50">
+        <div className="fixed bottom-4 right-4 flex items-center gap-2 z-1000">
           {prevExperiment && (
             <Button
               asChild

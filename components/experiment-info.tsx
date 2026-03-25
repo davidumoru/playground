@@ -28,11 +28,11 @@ export function ExperimentInfo({ experiment }: ExperimentInfoProps) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="fixed inset-0 z-50 backdrop-blur-[2px] bg-black/5"
+              className="fixed inset-0 z-1000 backdrop-blur-[2px] bg-black/5"
               onClick={() => setIsOpen(false)}
             />
 
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-6 pointer-events-none">
+            <div className="fixed inset-0 z-1000 flex items-center justify-center p-6 pointer-events-none">
               <motion.div
                 initial={{ opacity: 0, scale: 0.96, y: 8 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
