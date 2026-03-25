@@ -37,9 +37,6 @@ uniform float u_time;
 uniform float u_stateTime;
 uniform vec2 u_viewport;
 
-uniform float u_stateListen;
-uniform float u_isListening;
-
 uniform sampler2D uTextureNoise;
 uniform vec3 u_bloopColorMain;
 uniform vec3 u_bloopColorLow;
@@ -55,7 +52,6 @@ struct SDFArgs {
     vec2 st;
     float duration;
     float time;
-    float mainRadius;
 };
 
 float scaled(float edge0, float edge1, float x) { return clamp((x - edge0) / (edge1 - edge0), 0.0, 1.0); }
@@ -138,12 +134,11 @@ float cnoise(vec3 P) {
     return 2.2 * n_xyz;
 }
 
-ColoredSDF getListenState(SDFArgs args) {
+ColoredSDF getOrb(SDFArgs args) {
     ColoredSDF sdf;
-    float listeningAmount = u_isListening;
     float entryAnimation = fixedSpring(scaled(0.0, 2.0, args.duration), 0.92);
 
-    float baseRadius = mix(0.43, 0.37, listeningAmount);
+    float baseRadius = 0.37;
     float entryScale = mix(0.9, 1.0, entryAnimation);
     float radius = baseRadius * entryScale;
 
@@ -250,31 +245,15 @@ void main() {
     SDFArgs args;
     args.st = st;
     args.time = u_time;
-    args.mainRadius = 0.49;
+    args.duration = u_stateTime;
 
-    float totalDist = 0.0;
-    vec4 totalColor = vec4(0.0);
-    float totalWeight = 0.0;
-
-    if (u_stateListen > 0.0) {
-        SDFArgs tmp = args;
-        tmp.duration = u_stateTime;
-        ColoredSDF res = getListenState(tmp);
-        totalDist += res.distance * u_stateListen;
-        totalColor += res.color * u_stateListen;
-        totalWeight += u_stateListen;
-    }
+    ColoredSDF res = getOrb(args);
 
     float clampingTolerance = 0.0075;
-    float clampedShape = smoothstep(clampingTolerance, 0.0, totalDist);
-    float alpha = totalColor.a * clampedShape;
+    float clampedShape = smoothstep(clampingTolerance, 0.0, res.distance);
+    float alpha = res.color.a * clampedShape;
 
-    vec3 finalColor = totalColor.rgb;
-    if (totalWeight > 0.001) {
-        finalColor /= totalWeight;
-    }
-
-    fragColor = vec4(finalColor * alpha, alpha);
+    fragColor = vec4(res.color.rgb * alpha, alpha);
 }`;
 
 type ThemeColors = {
@@ -506,8 +485,6 @@ function OrbVisualization({
           "u_bloopColorLow",
           "u_bloopColorMid",
           "u_bloopColorHigh",
-          "u_stateListen",
-          "u_isListening",
         ] as const;
         const uniformLocations: Record<string, WebGLUniformLocation | null> = {};
         for (const name of uniformNames) {
@@ -662,8 +639,6 @@ function OrbVisualization({
       setUniform("u_bloopColorLow", [...themeColors.low]);
       setUniform("u_bloopColorMid", [...themeColors.mid]);
       setUniform("u_bloopColorHigh", [...themeColors.high]);
-      setUniform("u_stateListen", 1);
-      setUniform("u_isListening", 1);
 
       if (noiseTextureRef.current) {
         gl.activeTexture(gl.TEXTURE0);
