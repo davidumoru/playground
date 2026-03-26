@@ -188,7 +188,7 @@ export const experiments: Experiment[] = [
     component: "InfiniteCanvas",
     previewImage: "/images/previews/infinite-canvas.jpg",
     previewVideo:
-      "https://indevo.xyz/infinite-canvas-2.mp4",
+      "https://indevo.xyz/infinite-canvas.mp4",
   },
   {
     id: "shader-orb",
