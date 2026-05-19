@@ -23,7 +23,7 @@ export default function NotFound() {
               href="/"
               className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
             >
-              Playground -- David Umoru
+              Playground -- David U.
             </Link>
             <div className="flex items-center gap-4">
               <a
@@ -41,6 +41,14 @@ export default function NotFound() {
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 GitHub
+              </a>
+                            <a
+                href="https://buymeacoffee.com/theumoru"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
+              >
+                Support
               </a>
             </div>
           </div>
