@@ -34,8 +34,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-10-15",
     component: "DiagonalCarousel",
     previewImage: "/images/previews/diagonal-carousel.jpg",
-    previewVideo:
-      "https://indevo.xyz/diagonal-carousel.mp4",
+    previewVideo: "https://umorucdn.xyz/diagonal-carousel.mp4",
   },
   {
     id: "vertical-text-reveal",
@@ -51,8 +50,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-15",
     component: "VerticalTextReveal",
     previewImage: "/images/previews/vertical-text-reveal.jpg",
-    previewVideo:
-      "https://indevo.xyz/vertical-text-reveal.mp4",
+    previewVideo: "https://umorucdn.xyz/vertical-text-reveal.mp4",
   },
   {
     id: "three-d-hover-transform",
@@ -68,8 +66,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-09-20",
     component: "ThreeDHoverTransform",
     previewImage: "/images/previews/three-d-hover-transform.jpg",
-    previewVideo:
-      "https://indevo.xyz/3d-hover-transform.mp4",
+    previewVideo: "https://umorucdn.xyz/3d-hover-transform.mp4",
   },
   {
     id: "photo-sphere",
@@ -85,8 +82,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-22",
     component: "PhotoSphere",
     previewImage: "/images/previews/photo-sphere.jpg",
-    previewVideo:
-      "https://indevo.xyz/photo-sphere.mp4",
+    previewVideo: "https://umorucdn.xyz/photo-sphere.mp4",
   },
   {
     id: "three-d-photo-carousel",
@@ -102,8 +98,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-11-01",
     component: "ThreeDPhotoCarousel",
     previewImage: "/images/previews/three-d-photo-carousel.jpg",
-    previewVideo:
-      "https://indevo.xyz/3d-photo-carousel.mp4",
+    previewVideo: "https://umorucdn.xyz/3d-photo-carousel.mp4",
   },
   {
     id: "hover-preview",
@@ -119,8 +114,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-08-07",
     component: "HoverPreview",
     previewImage: "/images/previews/hover-preview.jpg",
-    previewVideo:
-      "https://indevo.xyz/hover-preview.mp4",
+    previewVideo: "https://umorucdn.xyz/hover-preview.mp4",
   },
   {
     id: "image-trail",
@@ -136,8 +130,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-08-18",
     component: "ImageTrail",
     previewImage: "/images/previews/image-trail.jpg",
-    previewVideo:
-      "https://indevo.xyz/image-trail.mp4",
+    previewVideo: "https://umorucdn.xyz/image-trail.mp4",
   },
   {
     id: "infinite-parallax-grid",
@@ -153,8 +146,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-10-08",
     component: "InfiniteParallaxGrid",
     previewImage: "/images/previews/infinite-parallax-grid.jpg",
-    previewVideo:
-      "https://indevo.xyz/infinite-parallax-grid.mp4",
+    previewVideo: "https://umorucdn.xyz/infinite-parallax-grid.mp4",
   },
   {
     id: "sticky-scroll-cards",
@@ -170,8 +162,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-09-10",
     component: "StickyScrollCards",
     previewImage: "/images/previews/sticky-scroll-cards.jpg",
-    previewVideo:
-      "https://indevo.xyz/sticky-scroll-cards.mp4",
+    previewVideo: "https://umorucdn.xyz/sticky-scroll-cards.mp4",
   },
   {
     id: "infinite-canvas",
@@ -187,8 +178,7 @@ export const experiments: Experiment[] = [
     createdAt: "2025-12-05",
     component: "InfiniteCanvas",
     previewImage: "/images/previews/infinite-canvas.jpg",
-    previewVideo:
-      "https://indevo.xyz/infinite-canvas.mp4",
+    previewVideo: "https://umorucdn.xyz/infinite-canvas.mp4",
   },
   {
     id: "shader-orb",
@@ -204,8 +194,7 @@ export const experiments: Experiment[] = [
     createdAt: "2026-03-25",
     component: "ShaderOrb",
     previewImage: "/images/previews/chat-shader.jpg",
-    previewVideo:
-      "https://indevo.xyz/shader-orb.mp4",
+    previewVideo: "https://umorucdn.xyz/shader-orb.mp4",
   },
   /*
   {
@@ -244,8 +233,7 @@ export const experiments: Experiment[] = [
     createdAt: "2026-02-19",
     component: "PathMarquee",
     previewImage: "/images/previews/path-marquee.jpg",
-    previewVideo:
-      "https://indevo.xyz/path-marquee.mp4",
+    previewVideo: "https://umorucdn.xyz/path-marquee.mp4",
   },
   /*
   {
