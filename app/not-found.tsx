@@ -1,20 +1,16 @@
 import Link from "next/link";
-import GrainGradient from "@/components/experiments/grain-gradient";
 import { Button } from "@/components/ui/button";
 
 export default function NotFound() {
   return (
     <div className="relative min-h-screen w-full flex flex-col bg-background selection:bg-foreground selection:text-background overflow-hidden">
-      <div className="absolute inset-0 z-0">
-        <GrainGradient
-          colors={["#f8fafc", "#f1f5f9", "#e2e8f0"]}
-          colorBack="#ffffff"
-          intensity={0.05}
-          noise={0.1}
-          speed={0.5}
-          shape="blob"
-        />
-      </div>
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          background:
+            "radial-gradient(120% 100% at 50% 0%, var(--muted) 0%, var(--background) 70%)",
+        }}
+      />
 
       <header className="relative z-10">
         <div className="container mx-auto px-6 py-6">
@@ -42,7 +38,7 @@ export default function NotFound() {
               >
                 GitHub
               </a>
-                            <a
+              <a
                 href="https://buymeacoffee.com/theumoru"
                 target="_blank"
                 rel="noopener noreferrer"
