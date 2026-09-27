@@ -17,7 +17,7 @@ export function ExperimentInfo({ experiment }: ExperimentInfoProps) {
     <>
       <Button variant="secondary" size="sm" className="gap-2 btn-press" onClick={() => setIsOpen(true)}>
         <Info className="size-4" />
-        Info
+        <span className="max-sm:sr-only">Info</span>
       </Button>
 
       <AnimatePresence mode="wait">

@@ -2,7 +2,7 @@
 
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight, Check, LinkIcon } from "lucide-react";
+import { ChevronLeft, ChevronRight, Check, Code, LinkIcon } from "lucide-react";
 import { sortedExperiments } from "@/lib/experiments";
 import { ExperimentDisplay } from "@/components/experiment-display";
 import { ExperimentInfo } from "@/components/experiment-info";
@@ -41,19 +41,21 @@ export default function ExperimentPageClient({ params }: Props) {
     <div className="min-h-screen bg-background">
       <header className="fixed top-0 left-0 right-0 z-1000">
         <div className="px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex min-w-0 items-center gap-2 text-sm text-muted-foreground">
               <Link
                 href="/"
-                className="flex items-center gap-2 hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                className="flex shrink-0 items-center gap-2 hover:text-foreground transition-colors duration-150 ease-[cubic-bezier(0.16,1,0.3,1)]"
               >
                 Playground
               </Link>
-              <ChevronRight className="size-4" />
-              <span className="text-foreground">{experiment.title}</span>
+              <ChevronRight className="size-4 shrink-0" />
+              <span className="truncate text-foreground" title={experiment.title}>
+                {experiment.title}
+              </span>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-2">
               <Button
                 asChild
                 variant="default"
@@ -64,20 +66,10 @@ export default function ExperimentPageClient({ params }: Props) {
                   href={experiment.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Source"
                 >
-                  <svg
-                    className="size-3.5"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                  </svg>
-                  Source
+                  <Code className="size-3.5" />
+                  <span className="max-sm:sr-only">Source</span>
                 </a>
               </Button>
               <ExperimentInfo experiment={experiment} />
