@@ -38,13 +38,7 @@ const experiments: Record<string, React.ComponentType> = {
   ShaderOrb: dynamic(() => import("./experiments/shader-orb"), {
     loading: () => <ExperimentLoader />,
   }),
-  GrainGradient: dynamic(() => import("./experiments/grain-gradient"), {
-    loading: () => <ExperimentLoader />,
-  }),
   PathMarquee: dynamic(() => import("./experiments/path-marquee"), {
-    loading: () => <ExperimentLoader />,
-  }),
-  PortfolioCaseStudy: dynamic(() => import("./experiments/portfolio-case-study"), {
     loading: () => <ExperimentLoader />,
   }),
 }
